@@ -16,7 +16,7 @@ public class parseXML {
 //		parseSkillXML();
 //		parsePetDictionaryXML();
 //		parseEmblemXML();
-		parseEmblemTwoXML();
+//		parseEmblemTwoXML();
 	}
 	public static void parsePetXML(){  
 	    try {  
@@ -37,11 +37,11 @@ public class parseXML {
 	            System.out.println(monster.attributeValue("SpDef"));
 	            System.out.println(monster.attributeValue("Spd"));
 	            System.out.println(monster.attributeValue("YieldingExp"));
+	            System.out.println(monster.attributeValue("YieldingEV"));
 	            System.out.println(monster.attributeValue("EvolvesFrom"));
 	            System.out.println(monster.attributeValue("EvolvesTo"));
-	            System.out.println(monster.attributeValue("Type"));
-	            System.out.println(monster.attributeValue("YieldingEV"));
 	            System.out.println(monster.attributeValue("EvolvingLv"));
+	            System.out.println(monster.attributeValue("Type"));
 	            System.out.println(monster.attributeValue("CatchRat"));
 	            System.out.println(monster.attributeValue("EvolvFlag"));
 	            System.out.println(monster.attributeValue("FreeForbidden"));
