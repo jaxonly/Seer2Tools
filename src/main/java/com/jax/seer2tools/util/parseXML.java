@@ -1,6 +1,9 @@
 package com.jax.seer2tools.util;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,173 +12,249 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.jax.seer2tools.entity.EmblemInfo;
+import com.jax.seer2tools.entity.EmblemTwoInfo;
+import com.jax.seer2tools.entity.HideMoveInfo;
+import com.jax.seer2tools.entity.MonsterInfo;
+import com.jax.seer2tools.entity.PetDictionary;
+import com.jax.seer2tools.entity.SkillInfo;
+import com.jax.seer2tools.entity.SkillMonster;
+
 public class parseXML {
-	public static void main(String[] args) {
-//		parsePetXML();
-//		parseHideMovesXML();
-//		parseSkillXML();
-//		parsePetDictionaryXML();
-//		parseEmblemXML();
-//		parseEmblemTwoXML();
+	public parseXML() throws Exception {
+		// TODO Auto-generated constructor stub
+		parsePetXML();
+		parseHideMovesXML();
+		parseSkillXML();
+		parsePetDictionaryXML();
+		parseEmblemXML();
+		parseEmblemTwoXML();
 	}
-	public static void parsePetXML(){  
-	    try {  
-	        SAXReader sax = new SAXReader();  
-	        Document xmlDoc = sax.read(new File("src/main/resources/xml/Pet.xml"));  
-	        Element root = xmlDoc.getRootElement(); 
-	        Iterator it = root.elementIterator("Monster");  
-	        while(it.hasNext()){  
-	            Element monster = (Element)it.next();
-	            System.out.println(monster.attributeValue("NumbersID"));
-	            System.out.println(monster.attributeValue("ID"));
-	            System.out.println(monster.attributeValue("DefName"));
-	            System.out.println(monster.attributeValue("GrowthType"));
-	            System.out.println(monster.attributeValue("HP"));
-	            System.out.println(monster.attributeValue("Atk"));
-	            System.out.println(monster.attributeValue("Def"));
-	            System.out.println(monster.attributeValue("SpAtk"));
-	            System.out.println(monster.attributeValue("SpDef"));
-	            System.out.println(monster.attributeValue("Spd"));
-	            System.out.println(monster.attributeValue("YieldingExp"));
-	            System.out.println(monster.attributeValue("YieldingEV"));
-	            System.out.println(monster.attributeValue("EvolvesFrom"));
-	            System.out.println(monster.attributeValue("EvolvesTo"));
-	            System.out.println(monster.attributeValue("EvolvingLv"));
-	            System.out.println(monster.attributeValue("Type"));
-	            System.out.println(monster.attributeValue("CatchRat"));
-	            System.out.println(monster.attributeValue("EvolvFlag"));
-	            System.out.println(monster.attributeValue("FreeForbidden"));
-	            System.out.println(monster.attributeValue("Height"));
-	            System.out.println(monster.attributeValue("Weight"));
-	            System.out.println(monster.attributeValue("Gender"));
-	            System.out.println(monster.attributeValue("Features"));
-	            System.out.println(monster.attributeValue("ride"));
-	            System.out.println(monster.attributeValue("use_num"));
-	            System.out.println(monster.attributeValue("ChgMonId"));
-	        }  
-	    } catch (DocumentException e) {  
-	        e.printStackTrace();  
-	    }  
+//57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin
+	public void parsePetXML() throws Exception {
+		try {
+			SAXReader sax = new SAXReader();
+			Document xmlDoc = sax.read(new File("src/main/resources/xml/57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin"));
+			Element root = xmlDoc.getRootElement();
+			Iterator it = root.elementIterator("Monster");
+			Connection conn = getConn();
+			Connection conn2 = getConn();
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO monster_info (`numbers_id`, `id`, `def_name`, `growth_type`, `hp`, `atk`, `def`, `sp_atk`, `sp_def`, `spd`, `yielding_exp`, `yielding_ev`, `evolves_from`, `evolves_to`, `evolves_lv`, `type`, `catch_rat`, `evolv_flag`, `free_forbidden`, `height`, `weight`, `gender`, `features`, `ride`, `use_num`, `chg_mon_id`)"+
+			" VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+			PreparedStatement ps2 = conn.prepareStatement(
+					"INSERT INTO skill_monster (`monster_id`, `Learning_Lv`, `skill_id`) VALUES (?, ?, ?)");
+			while (it.hasNext()) {
+				Element monster = (Element) it.next();
+				ps.setInt(1,Integer.parseInt(replaceNull(monster.attributeValue("NumbersID"))));
+				ps.setShort(2,Short.parseShort(replaceNull(monster.attributeValue("ID"))));
+				ps.setString(3,monster.attributeValue("DefName"));
+				ps.setByte(4,Byte.parseByte(replaceNull(monster.attributeValue("GrowthType"))));
+				ps.setShort(5,Short.parseShort(replaceNull(monster.attributeValue("HP"))));
+				ps.setShort(6,Short.parseShort(replaceNull(monster.attributeValue("Atk"))));
+				ps.setShort(7,Short.parseShort(replaceNull(monster.attributeValue("Def"))));
+				ps.setShort(8,Short.parseShort(replaceNull(monster.attributeValue("SpAtk"))));
+				ps.setShort(9,Short.parseShort(replaceNull(monster.attributeValue("SpDef"))));
+				ps.setShort(10,Short.parseShort(replaceNull(monster.attributeValue("Spd"))));
+				ps.setShort(11,Short.parseShort(replaceNull(monster.attributeValue("YieldingExp"))));
+				ps.setShort(12,Short.parseShort(replaceNull(monster.attributeValue("YieldingEV"))));
+				ps.setShort(13,Short.parseShort(replaceNull(monster.attributeValue("EvolvesFrom"))));
+				ps.setShort(14,Short.parseShort(replaceNull(monster.attributeValue("EvolvesTo"))));
+				ps.setShort(15,Short.parseShort(replaceNull(monster.attributeValue("EvolvingLv"))));
+				ps.setByte(16,Byte.parseByte(replaceNull(monster.attributeValue("Type"))));
+				ps.setByte(17,Byte.parseByte(replaceNull(monster.attributeValue("CatchRat"))));
+				ps.setShort(18,Short.parseShort(replaceNull(monster.attributeValue("EvolvFlag"))));
+				ps.setByte(19,Byte.parseByte(replaceNull(monster.attributeValue("FreeForbidden"))));
+				ps.setString(20,monster.attributeValue("Height"));
+				ps.setString(21,monster.attributeValue("Weight"));
+				ps.setString(22,monster.attributeValue("Gender"));
+				ps.setShort(23,Short.parseShort(replaceNull(monster.attributeValue("Features"))));
+				ps.setByte(24,Byte.parseByte(replaceNull(monster.attributeValue("ride"))));
+				ps.setByte(25,Byte.parseByte(replaceNull(monster.attributeValue("use_num"))));
+				ps.setShort(26,Short.parseShort(replaceNull(monster.attributeValue("ChgMonId"))));
+				ps.execute();
+				Element LearnableMoves = monster.element("LearnableMoves");
+				List<Element> Moves = LearnableMoves.elements();
+				for (Element Move : Moves) {
+					ps2.setShort(1,Short.parseShort(replaceNull(monster.attributeValue("ID"))));
+					ps2.setShort(2,Short.parseShort(replaceNull(Move.attributeValue("LearningLv"))));
+					ps2.setShort(3,Short.parseShort(replaceNull(Move.attributeValue("ID"))));
+					ps2.execute();
+				}
+			}
+			ps.close();
+			ps2.close();
+			conn.close();
+			conn2.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public static void parseHideMovesXML(){  
-	    try {  
-	        SAXReader sax = new SAXReader();  
-	        Document xmlDoc = sax.read(new File("src/main/resources/xml/HideMoves.xml"));  
-	        Element root = xmlDoc.getRootElement(); 
-	        Element HideMoves = root.element("HideMoves");
-	        Iterator it = HideMoves.elementIterator("HideMove");  
-	        while(it.hasNext()){  
-	            Element monster = (Element)it.next();
-	            System.out.println(monster.attributeValue("ID"));
-	            System.out.println(monster.attributeValue("Tips"));
-	        }  
-	    } catch (DocumentException e) {  
-	        e.printStackTrace();  
-	    }  
+//11_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass.bin
+	public void parseHideMovesXML() throws Exception {
+		try {
+			SAXReader sax = new SAXReader();
+			Document xmlDoc = sax.read(new File("src/main/resources/xml/11_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass.bin"));
+			Element root = xmlDoc.getRootElement();
+			Element HideMoves = root.element("HideMoves");
+			Iterator it = HideMoves.elementIterator("HideMove");
+			Connection conn = getConn();
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO hide_move_info (`id`, `tips`) VALUES (?, ?)");
+			while (it.hasNext()) {
+				Element monster = (Element) it.next();
+				ps.setInt(1,Integer.parseInt(replaceNull(monster.attributeValue("ID"))));
+				ps.setString(2,monster.attributeValue("Tips"));
+				ps.execute();
+			}
+			ps.close();
+			conn.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public static void parseSkillXML(){  
-	    try {  
-	        SAXReader sax = new SAXReader();  
-	        Document xmlDoc = sax.read(new File("src/main/resources/xml/Skill.xml"));  
-	        Element root = xmlDoc.getRootElement(); 
-	        Element moves = root.element("Moves");
-	        Iterator it = moves.elementIterator("Move");  
-	        while(it.hasNext()){  
-	            Element monster = (Element)it.next();
-	            System.out.println(monster.attributeValue("ID"));
-	            System.out.println(monster.attributeValue("Name"));
-	            System.out.println(monster.attributeValue("Category"));
-	            System.out.println(monster.attributeValue("Type"));
-	            System.out.println(monster.attributeValue("Power"));
-	            System.out.println(monster.attributeValue("Accuracy"));
-	            System.out.println(monster.attributeValue("Anger"));
-	            System.out.println(monster.attributeValue("Tips"));
-	            System.out.println(monster.attributeValue("ChgMoveId"));
-	        }  
-	    } catch (DocumentException e) {  
-	        e.printStackTrace();  
-	    }  
+//79_com.taomee.seer2.app.config.SkillConfig__movesXmlClass_com.taomee.seer2.app.config.SkillConfig__movesXmlClass.bin
+	public void parseSkillXML() throws Exception {
+		try {
+			SAXReader sax = new SAXReader();
+			Document xmlDoc = sax.read(new File("src/main/resources/xml/79_com.taomee.seer2.app.config.SkillConfig__movesXmlClass_com.taomee.seer2.app.config.SkillConfig__movesXmlClass.bin"));
+			Element root = xmlDoc.getRootElement();
+			Element moves = root.element("Moves");
+			Iterator it = moves.elementIterator("Move");
+			Connection conn = getConn();
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO skill_info (`id`, `name`, `category`, `type`, `power`, `accuracy`, `anger`, `tips`, `chg_move_id`) VALUES (?,?,?,?,?,?,?,?,?)");
+			while (it.hasNext()) {
+				Element monster = (Element) it.next();
+				ps.setInt(1,Integer.parseInt(replaceNull(monster.attributeValue("ID"))));
+				ps.setString(2,monster.attributeValue("Name"));
+				ps.setByte(3,Byte.parseByte(replaceNull(monster.attributeValue("Category"))));
+				ps.setByte(4,Byte.parseByte(replaceNull(monster.attributeValue("Type"))));
+				ps.setInt(5,Integer.parseInt(replaceNull(monster.attributeValue("Power"))));
+				ps.setShort(6,Short.parseShort(replaceNull(monster.attributeValue("Accuracy"))));
+				ps.setByte(7,Byte.parseByte(replaceNull(monster.attributeValue("Anger"))));
+				ps.setString(8,monster.attributeValue("Tips"));
+				ps.setInt(9,Integer.parseInt(replaceNull(monster.attributeValue("ChgMoveId"))));
+				ps.execute();
+			}
+			ps.close();
+			conn.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public static void parsePetDictionaryXML(){  
-	    try {  
-	        SAXReader sax = new SAXReader();  
-	        Document xmlDoc = sax.read(new File("src/main/resources/xml/PetDictionary.xml"));  
-	        Element root = xmlDoc.getRootElement(); 
-	        Iterator it = root.elementIterator("Monster");  
-	        while(it.hasNext()){
-	            Element monster = (Element)it.next();
-	            System.out.println("--------");
-	            System.out.println(monster.attributeValue("NumbersID"));
-	            System.out.println(monster.attributeValue("emblemID"));
-	            System.out.println(monster.attributeValue("DefName"));
-	            System.out.println(monster.attributeValue("Type"));
-	            System.out.println(monster.attributeValue("Height"));
-	            System.out.println(monster.attributeValue("Weight"));
-	            System.out.println(monster.attributeValue("Foundin"));
-	            System.out.println(monster.attributeValue("isNew"));
-	            System.out.println(monster.attributeValue("Features"));
-	            System.out.println(monster.attributeValue("intro"));
-	            System.out.println(monster.attributeValue("chara"));
-	            System.out.println(monster.attributeValue("charaPoint"));
-	            System.out.println(monster.attributeValue("recommendQuality"));
-	            System.out.println(monster.attributeValue("recommendSkill"));
-	            System.out.println(monster.attributeValue("getWay"));
-	            System.out.println(monster.attributeValue("isClose"));
-	            System.out.println(monster.attributeValue("changeTip"));
-	        }  
-	    } catch (DocumentException e) {  
-	        e.printStackTrace();  
-	    }  
+//new77_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass.bin
+	public void parsePetDictionaryXML() throws Exception {
+		try {
+			SAXReader sax = new SAXReader();
+			Document xmlDoc = sax.read(new File("src/main/resources/xml/new77_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass.bin"));
+			Element root = xmlDoc.getRootElement();
+			Iterator it = root.elementIterator("Monster");
+			Connection conn = getConn();
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO pet_dictionary (`Numbers_ID`, `emblem_ID`, `Def_Name`, `Type`, `Height`, `Weight`, `Foundin`, `is_New`, `Features`, `intro`, `chara`, `chara_Point`, `recommend_Quality`, `recommend_Skill`, `get_Way`, `is_Close`, `change_Tip`)"+
+			"VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			while (it.hasNext()) {
+				Element monster = (Element) it.next();
+				ps.setShort(1,Short.parseShort(replaceNull(monster.attributeValue("NumbersID"))));
+				ps.setInt(2,Integer.parseInt(replaceNull(monster.attributeValue("emblemID"))));
+				ps.setString(3,monster.attributeValue("DefName"));
+				ps.setString(4,monster.attributeValue("Type"));
+				ps.setString(5,monster.attributeValue("Height"));
+				ps.setString(6,monster.attributeValue("Weight"));
+				ps.setString(7,monster.attributeValue("Foundin"));
+				ps.setByte(8,Byte.parseByte(replaceNull(monster.attributeValue("isNew"))));
+				ps.setString(9,monster.attributeValue("Features"));
+				ps.setString(10,monster.attributeValue("intro"));
+				ps.setString(11,monster.attributeValue("chara"));
+				ps.setString(12,monster.attributeValue("charaPoint"));
+				ps.setString(13,monster.attributeValue("recommendQuality"));
+				ps.setString(14,monster.attributeValue("recommendSkill"));
+				ps.setString(15,monster.attributeValue("getWay"));
+				ps.setByte(16,Byte.parseByte(replaceNull(monster.attributeValue("isClose"))));
+				ps.setString(17,monster.attributeValue("changeTip"));
+				ps.execute();
+			}
+			ps.close();
+			conn.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public static void parseEmblemXML(){  
-	    try {  
-	        SAXReader sax = new SAXReader();  
-	        Document xmlDoc = sax.read(new File("src/main/resources/xml/ItemConfig.xml"));  
-	        Element root = xmlDoc.getRootElement(); 
-	        Iterator it = root.elementIterator("Cat");  
-	        while(it.hasNext()){
-	        	Element emblem = (Element)it.next();
-	        	if (emblem.attributeValue("ID").equals("3")) {
-	        		List<Element> items = emblem.elements("Item");
-	        		for (Element item : items) {
-	        			System.out.println(item.attributeValue("ID"));
-	        			System.out.println(item.attributeValue("Name"));
-	        			System.out.println(item.attributeValue("NumbersID"));
-	        			System.out.println(item.attributeValue("HonorPrice"));
-	        			System.out.println(item.attributeValue("MiBuyID"));
-	        			System.out.println(item.element("Tip").getText());
+//43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin
+	public void parseEmblemXML() throws Exception {
+		try {
+			SAXReader sax = new SAXReader();
+			Document xmlDoc = sax.read(new File("src/main/resources/xml/43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin"));
+			Element root = xmlDoc.getRootElement();
+			Iterator it = root.elementIterator("Cat");
+			Connection conn = getConn();
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO emblem_info (`id`, `name`, `Numbers_ID`, `Honor_Price`, `Mi_Buy_ID`, `Tip`) VALUES (?,?,?,?,?,?)");
+			while (it.hasNext()) {
+				Element emblem = (Element) it.next();
+				if (emblem.attributeValue("ID").equals("3")) {
+					List<Element> items = emblem.elements("Item");
+					for (Element item : items) {
+						ps.setInt(1,Integer.parseInt(replaceNull(item.attributeValue("ID"))));
+						ps.setString(2,item.attributeValue("Name"));
+						ps.setShort(3,Short.parseShort(replaceNull(item.attributeValue("NumbersID"))));
+						ps.setShort(4,Short.parseShort(replaceNull(item.attributeValue("HonorPrice"))));
+						ps.setInt(5,Integer.parseInt(replaceNull(item.attributeValue("MiBuyID"))));
+						ps.setString(6,item.element("Tip").getText());
+						ps.execute();
 					}
 				}
-	        }  
-	    } catch (DocumentException e) {  
-	        e.printStackTrace();  
-	    }  
+			}
+			ps.close();
+			conn.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 	}
-	public static void parseEmblemTwoXML(){  
-	    try {  
-	        SAXReader sax = new SAXReader();  
-	        Document xmlDoc = sax.read(new File("src/main/resources/xml/ItemConfig.xml"));  
-	        Element root = xmlDoc.getRootElement(); 
-	        Iterator it = root.elementIterator("Cat");  
-	        while(it.hasNext()){
-	        	Element emblem = (Element)it.next();
-	        	if (emblem.attributeValue("ID").equals("7")) {
-	        		List<Element> items = emblem.elements("Item");
-	        		for (Element item : items) {
-	        			System.out.println(item.attributeValue("ID"));
-	        			System.out.println(item.attributeValue("Name"));
-	        			System.out.println(item.attributeValue("Type"));
-	        			System.out.println(item.attributeValue("NumbersID"));
-	        			System.out.println(item.element("Tip").getText());
+//43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin
+	public void parseEmblemTwoXML() throws Exception {
+		try {
+			SAXReader sax = new SAXReader();
+			Document xmlDoc = sax.read(new File("src/main/resources/xml/43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin"));
+			Element root = xmlDoc.getRootElement();
+			Iterator it = root.elementIterator("Cat");
+			Connection conn = getConn();
+			PreparedStatement ps = conn.prepareStatement(
+					"INSERT INTO `monster_info`.`emblem_two_info` (`id`, `name`, `type`, `Numbers_ID`, `Tip`) VALUES (?,?,?,?,?);");
+			while (it.hasNext()) {
+				Element emblem = (Element) it.next();
+				if (emblem.attributeValue("ID").equals("7")) {
+					List<Element> items = emblem.elements("Item");
+					for (Element item : items) {
+						ps.setInt(1,Integer.parseInt(replaceNull(item.attributeValue("ID"))));
+						ps.setString(2,item.attributeValue("Name"));
+						ps.setShort(3,Short.parseShort(replaceNull(item.attributeValue("Type"))));
+						ps.setShort(4,Short.parseShort(replaceNull(item.attributeValue("NumbersID"))));
+						ps.setString(5,item.element("Tip").getText());
+						ps.execute();
 					}
 				}
-	        }  
-	    } catch (DocumentException e) {  
-	        e.printStackTrace();  
-	    }  
+			}
+			ps.close();
+			conn.close();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String replaceNull(String str) {
+		if (str == null || "".equals(str)) {
+			return "0";
+		}
+		return str;
+	}
+	
+	private Connection getConn() throws Exception {
+        Connection conn = null;
+        String url = "jdbc:mysql://localhost:3306/monster_info?useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC";
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(url,"root","root");
+            return conn;
 	}
 }
