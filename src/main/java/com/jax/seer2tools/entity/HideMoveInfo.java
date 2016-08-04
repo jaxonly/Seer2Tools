@@ -9,7 +9,7 @@ public class HideMoveInfo {
     /**
      * 获得方式
      */
-    private Integer tips;
+    private String tips;
 
     public Integer getId() {
         return id;
@@ -19,11 +19,17 @@ public class HideMoveInfo {
         this.id = id;
     }
 
-    public Integer getTips() {
+    public String getTips() {
         return tips;
     }
 
-    public void setTips(Integer tips) {
+    public void setTips(String tips) {
         this.tips = tips;
     }
+
+	@Override
+	public String toString() {
+		return "HideMoveInfo [id=" + id + ", tips=" + tips + "]";
+	}
+
 }

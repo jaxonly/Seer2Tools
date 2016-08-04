@@ -24,9 +24,9 @@ public class EmblemInfo {
     /**
      * 对应米币购买ID
      */
-    private Short miBuyId;
+    private Integer miBuyId;
 
-    /**
+	/**
      * 描述
      */
     private String tip;
@@ -63,11 +63,11 @@ public class EmblemInfo {
         this.honorPrice = honorPrice;
     }
 
-    public Short getMiBuyId() {
+    public Integer getMiBuyId() {
         return miBuyId;
     }
 
-    public void setMiBuyId(Short miBuyId) {
+    public void setMiBuyId(Integer miBuyId) {
         this.miBuyId = miBuyId;
     }
 
@@ -78,4 +78,11 @@ public class EmblemInfo {
     public void setTip(String tip) {
         this.tip = tip;
     }
+
+	@Override
+	public String toString() {
+		return "EmblemInfo [id=" + id + ", name=" + name + ", numbersId=" + numbersId + ", honorPrice=" + honorPrice
+				+ ", miBuyId=" + miBuyId + ", tip=" + tip + "]";
+	}
+    
 }

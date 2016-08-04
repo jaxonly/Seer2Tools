@@ -9,7 +9,7 @@ public class PetDictionary {
     /**
      * 纹章ID
      */
-    private Short emblemId;
+    private Integer emblemId;
 
     /**
      * 精灵名称
@@ -94,11 +94,11 @@ public class PetDictionary {
         this.numbersId = numbersId;
     }
 
-    public Short getEmblemId() {
+    public Integer getEmblemId() {
         return emblemId;
     }
 
-    public void setEmblemId(Short emblemId) {
+    public void setEmblemId(Integer emblemId) {
         this.emblemId = emblemId;
     }
 
@@ -221,4 +221,15 @@ public class PetDictionary {
     public void setChangeTip(String changeTip) {
         this.changeTip = changeTip;
     }
+
+	@Override
+	public String toString() {
+		return "PetDictionary [numbersId=" + numbersId + ", emblemId=" + emblemId + ", defName=" + defName + ", type="
+				+ type + ", height=" + height + ", weight=" + weight + ", foundin=" + foundin + ", isNew=" + isNew
+				+ ", features=" + features + ", intro=" + intro + ", chara=" + chara + ", charaPoint=" + charaPoint
+				+ ", recommendQuality=" + recommendQuality + ", recommendSkill=" + recommendSkill + ", getWay=" + getWay
+				+ ", isClose=" + isClose + ", changeTip=" + changeTip + "]";
+	}
+    
+    
 }

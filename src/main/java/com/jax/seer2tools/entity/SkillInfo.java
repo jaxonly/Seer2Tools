@@ -24,12 +24,12 @@ public class SkillInfo {
     /**
      * 威力
      */
-    private Byte power;
+    private Integer power;
 
     /**
      * 命中率
      */
-    private Byte accuracy;
+    private Short accuracy;
 
     /**
      * 怒气消耗
@@ -78,19 +78,19 @@ public class SkillInfo {
         this.type = type;
     }
 
-    public Byte getPower() {
+    public Integer getPower() {
         return power;
     }
 
-    public void setPower(Byte power) {
+    public void setPower(Integer power) {
         this.power = power;
     }
 
-    public Byte getAccuracy() {
+    public Short getAccuracy() {
         return accuracy;
     }
 
-    public void setAccuracy(Byte accuracy) {
+    public void setAccuracy(Short accuracy) {
         this.accuracy = accuracy;
     }
 
@@ -117,4 +117,13 @@ public class SkillInfo {
     public void setChgMoveId(Integer chgMoveId) {
         this.chgMoveId = chgMoveId;
     }
+
+	@Override
+	public String toString() {
+		return "SkillInfo [id=" + id + ", name=" + name + ", category=" + category + ", type=" + type + ", power="
+				+ power + ", accuracy=" + accuracy + ", anger=" + anger + ", tips=" + tips + ", chgMoveId=" + chgMoveId
+				+ "]";
+	}
+    
+    
 }

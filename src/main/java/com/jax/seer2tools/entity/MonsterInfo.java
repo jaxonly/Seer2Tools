@@ -74,7 +74,7 @@ public class MonsterInfo {
     /**
      * 升级下一形态等级
      */
-    private Short evolvesLv;
+    private Short evolvingLv;
 
     /**
      * 属性
@@ -243,12 +243,12 @@ public class MonsterInfo {
         this.evolvesTo = evolvesTo;
     }
 
-    public Short getEvolvesLv() {
-        return evolvesLv;
+    public Short getEvolvingLv() {
+        return evolvingLv;
     }
 
-    public void setEvolvesLv(Short evolvesLv) {
-        this.evolvesLv = evolvesLv;
+    public void setEvolvingLv(Short evolvingLv) {
+        this.evolvingLv = evolvingLv;
     }
 
     public Byte getType() {
@@ -338,4 +338,16 @@ public class MonsterInfo {
     public void setChgMonId(Short chgMonId) {
         this.chgMonId = chgMonId;
     }
+
+	@Override
+	public String toString() {
+		return "MonsterInfo [numbersId=" + numbersId + ", id=" + id + ", defName=" + defName + ", growthType="
+				+ growthType + ", hp=" + hp + ", atk=" + atk + ", def=" + def + ", spAtk=" + spAtk + ", spDef=" + spDef
+				+ ", spd=" + spd + ", yieldingExp=" + yieldingExp + ", yieldingEv=" + yieldingEv + ", evolvesFrom="
+				+ evolvesFrom + ", evolvesTo=" + evolvesTo + ", evolvingLv=" + evolvingLv + ", type=" + type
+				+ ", catchRat=" + catchRat + ", evolvFlag=" + evolvFlag + ", freeForbidden=" + freeForbidden
+				+ ", height=" + height + ", weight=" + weight + ", gender=" + gender + ", features=" + features
+				+ ", ride=" + ride + ", useNum=" + useNum + ", chgMonId=" + chgMonId + "]";
+	}
+    
 }
