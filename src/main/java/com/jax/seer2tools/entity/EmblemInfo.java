@@ -1,34 +1,16 @@
 package com.jax.seer2tools.entity;
 
 public class EmblemInfo {
-    /**
-     * 编号
-     */
     private Integer id;
 
-    /**
-     * 名字
-     */
     private String name;
 
-    /**
-     * 精灵编号
-     */
     private Short numbersId;
 
-    /**
-     * 荣耀点兑换
-     */
     private Short honorPrice;
 
-    /**
-     * 对应米币购买ID
-     */
     private Integer miBuyId;
 
-	/**
-     * 描述
-     */
     private String tip;
 
     public Integer getId() {
@@ -44,7 +26,7 @@ public class EmblemInfo {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Short getNumbersId() {
@@ -76,13 +58,6 @@ public class EmblemInfo {
     }
 
     public void setTip(String tip) {
-        this.tip = tip;
+        this.tip = tip == null ? null : tip.trim();
     }
-
-	@Override
-	public String toString() {
-		return "EmblemInfo [id=" + id + ", name=" + name + ", numbersId=" + numbersId + ", honorPrice=" + honorPrice
-				+ ", miBuyId=" + miBuyId + ", tip=" + tip + "]";
-	}
-    
 }

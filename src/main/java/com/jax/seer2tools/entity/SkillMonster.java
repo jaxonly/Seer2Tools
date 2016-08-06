@@ -1,20 +1,11 @@
 package com.jax.seer2tools.entity;
 
 public class SkillMonster {
-    /**
-     * 
-     */
     private Short monsterId;
 
-    /**
-     * 
-     */
     private Short learningLv;
 
-    /**
-     * 
-     */
-    private Short skillId;
+    private Integer skillId;
 
     public Short getMonsterId() {
         return monsterId;
@@ -32,16 +23,11 @@ public class SkillMonster {
         this.learningLv = learningLv;
     }
 
-    public Short getSkillId() {
+    public Integer getSkillId() {
         return skillId;
     }
 
-    public void setSkillId(Short skillId) {
+    public void setSkillId(Integer skillId) {
         this.skillId = skillId;
     }
-
-	@Override
-	public String toString() {
-		return "SkillMonster [monsterId=" + monsterId + ", learningLv=" + learningLv + ", skillId=" + skillId + "]";
-	}
 }

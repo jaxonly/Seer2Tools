@@ -1,90 +1,51 @@
 package com.jax.seer2tools.entity;
 
 public class PetDictionary {
-    /**
-     * 编号ID
-     */
+    private Short id;
+
     private Short numbersId;
 
-    /**
-     * 纹章ID
-     */
     private Integer emblemId;
 
-    /**
-     * 精灵名称
-     */
     private String defName;
 
-    /**
-     * 属性
-     */
     private String type;
 
-    /**
-     * 身高
-     */
     private String height;
 
-    /**
-     * 体重
-     */
     private String weight;
 
-    /**
-     * 获取方式文字描述
-     */
     private String foundin;
 
-    /**
-     * 是否新精灵
-     */
     private Byte isNew;
 
-    /**
-     * 特性文字描述
-     */
     private String features;
 
-    /**
-     * 特点描述
-     */
     private String intro;
 
-    /**
-     * 性格
-     */
     private String chara;
 
-    /**
-     * 推荐属性加点
-     */
     private String charaPoint;
 
-    /**
-     * 推荐加点
-     */
     private String recommendQuality;
 
-    /**
-     * 推荐技能
-     */
     private String recommendSkill;
 
-    /**
-     * 获得方式
-     */
     private String getWay;
 
-    /**
-     * 是否下架
-     */
     private Byte isClose;
 
-    /**
-     * 变身提示
-     */
     private String changeTip;
+
+    private String supermodule;
+
+    public Short getId() {
+        return id;
+    }
+
+    public void setId(Short id) {
+        this.id = id;
+    }
 
     public Short getNumbersId() {
         return numbersId;
@@ -107,7 +68,7 @@ public class PetDictionary {
     }
 
     public void setDefName(String defName) {
-        this.defName = defName;
+        this.defName = defName == null ? null : defName.trim();
     }
 
     public String getType() {
@@ -115,7 +76,7 @@ public class PetDictionary {
     }
 
     public void setType(String type) {
-        this.type = type;
+        this.type = type == null ? null : type.trim();
     }
 
     public String getHeight() {
@@ -123,7 +84,7 @@ public class PetDictionary {
     }
 
     public void setHeight(String height) {
-        this.height = height;
+        this.height = height == null ? null : height.trim();
     }
 
     public String getWeight() {
@@ -131,7 +92,7 @@ public class PetDictionary {
     }
 
     public void setWeight(String weight) {
-        this.weight = weight;
+        this.weight = weight == null ? null : weight.trim();
     }
 
     public String getFoundin() {
@@ -139,7 +100,7 @@ public class PetDictionary {
     }
 
     public void setFoundin(String foundin) {
-        this.foundin = foundin;
+        this.foundin = foundin == null ? null : foundin.trim();
     }
 
     public Byte getIsNew() {
@@ -155,7 +116,7 @@ public class PetDictionary {
     }
 
     public void setFeatures(String features) {
-        this.features = features;
+        this.features = features == null ? null : features.trim();
     }
 
     public String getIntro() {
@@ -163,7 +124,7 @@ public class PetDictionary {
     }
 
     public void setIntro(String intro) {
-        this.intro = intro;
+        this.intro = intro == null ? null : intro.trim();
     }
 
     public String getChara() {
@@ -171,7 +132,7 @@ public class PetDictionary {
     }
 
     public void setChara(String chara) {
-        this.chara = chara;
+        this.chara = chara == null ? null : chara.trim();
     }
 
     public String getCharaPoint() {
@@ -179,7 +140,7 @@ public class PetDictionary {
     }
 
     public void setCharaPoint(String charaPoint) {
-        this.charaPoint = charaPoint;
+        this.charaPoint = charaPoint == null ? null : charaPoint.trim();
     }
 
     public String getRecommendQuality() {
@@ -187,7 +148,7 @@ public class PetDictionary {
     }
 
     public void setRecommendQuality(String recommendQuality) {
-        this.recommendQuality = recommendQuality;
+        this.recommendQuality = recommendQuality == null ? null : recommendQuality.trim();
     }
 
     public String getRecommendSkill() {
@@ -195,7 +156,7 @@ public class PetDictionary {
     }
 
     public void setRecommendSkill(String recommendSkill) {
-        this.recommendSkill = recommendSkill;
+        this.recommendSkill = recommendSkill == null ? null : recommendSkill.trim();
     }
 
     public String getGetWay() {
@@ -203,7 +164,7 @@ public class PetDictionary {
     }
 
     public void setGetWay(String getWay) {
-        this.getWay = getWay;
+        this.getWay = getWay == null ? null : getWay.trim();
     }
 
     public Byte getIsClose() {
@@ -219,17 +180,14 @@ public class PetDictionary {
     }
 
     public void setChangeTip(String changeTip) {
-        this.changeTip = changeTip;
+        this.changeTip = changeTip == null ? null : changeTip.trim();
     }
 
-	@Override
-	public String toString() {
-		return "PetDictionary [numbersId=" + numbersId + ", emblemId=" + emblemId + ", defName=" + defName + ", type="
-				+ type + ", height=" + height + ", weight=" + weight + ", foundin=" + foundin + ", isNew=" + isNew
-				+ ", features=" + features + ", intro=" + intro + ", chara=" + chara + ", charaPoint=" + charaPoint
-				+ ", recommendQuality=" + recommendQuality + ", recommendSkill=" + recommendSkill + ", getWay=" + getWay
-				+ ", isClose=" + isClose + ", changeTip=" + changeTip + "]";
-	}
-    
-    
+    public String getSupermodule() {
+        return supermodule;
+    }
+
+    public void setSupermodule(String supermodule) {
+        this.supermodule = supermodule == null ? null : supermodule.trim();
+    }
 }

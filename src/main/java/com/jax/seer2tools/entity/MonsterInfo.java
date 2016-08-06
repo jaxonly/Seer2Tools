@@ -1,143 +1,57 @@
 package com.jax.seer2tools.entity;
 
 public class MonsterInfo {
-    /**
-     * 编号ID
-     */
-    private Integer numbersId;
-
-    /**
-     * 形态ID
-     */
     private Short id;
 
-    /**
-     * 精灵名字
-     */
+    private Integer numbersId;
+
     private String defName;
 
-    /**
-     * 成长类型
-     */
     private Byte growthType;
 
-    /**
-     * 体力
-     */
     private Short hp;
 
-    /**
-     * 物攻
-     */
     private Short atk;
 
-    /**
-     * 物防
-     */
     private Short def;
 
-    /**
-     * 特攻
-     */
     private Short spAtk;
 
-    /**
-     * 特防
-     */
     private Short spDef;
 
-    /**
-     * 速度
-     */
     private Short spd;
 
-    /**
-     * 被击败产生经验
-     */
     private Short yieldingExp;
 
-    /**
-     * 被击败产生学习力
-     */
     private Short yieldingEv;
 
-    /**
-     * 上一形态ID
-     */
     private Short evolvesFrom;
 
-    /**
-     * 下一形态ID
-     */
     private Short evolvesTo;
 
-    /**
-     * 升级下一形态等级
-     */
-    private Short evolvingLv;
+    private Short evolvesLv;
 
-    /**
-     * 属性
-     */
     private Byte type;
 
-    /**
-     * 捕捉率
-     */
     private Byte catchRat;
 
-    /**
-     * 是否需要道具升级
-     */
     private Short evolvFlag;
 
-    /**
-     * 是否可以放生
-     */
     private Byte freeForbidden;
 
-    /**
-     * 身高
-     */
     private String height;
 
-    /**
-     * 体重
-     */
     private String weight;
 
-    /**
-     * 雌雄比例
-     */
     private String gender;
 
-    /**
-     * 特性
-     */
     private Short features;
 
-    /**
-     * 是否为骑宠
-     */
     private Byte ride;
 
-    /**
-     * 同时上场精灵数
-     */
     private Byte useNum;
 
-    /**
-     * 神迹变身后精灵ID
-     */
     private Short chgMonId;
-
-    public Integer getNumbersId() {
-        return numbersId;
-    }
-
-    public void setNumbersId(Integer numbersId) {
-        this.numbersId = numbersId;
-    }
 
     public Short getId() {
         return id;
@@ -147,12 +61,20 @@ public class MonsterInfo {
         this.id = id;
     }
 
+    public Integer getNumbersId() {
+        return numbersId;
+    }
+
+    public void setNumbersId(Integer numbersId) {
+        this.numbersId = numbersId;
+    }
+
     public String getDefName() {
         return defName;
     }
 
     public void setDefName(String defName) {
-        this.defName = defName;
+        this.defName = defName == null ? null : defName.trim();
     }
 
     public Byte getGrowthType() {
@@ -243,12 +165,12 @@ public class MonsterInfo {
         this.evolvesTo = evolvesTo;
     }
 
-    public Short getEvolvingLv() {
-        return evolvingLv;
+    public Short getEvolvesLv() {
+        return evolvesLv;
     }
 
-    public void setEvolvingLv(Short evolvingLv) {
-        this.evolvingLv = evolvingLv;
+    public void setEvolvesLv(Short evolvesLv) {
+        this.evolvesLv = evolvesLv;
     }
 
     public Byte getType() {
@@ -288,7 +210,7 @@ public class MonsterInfo {
     }
 
     public void setHeight(String height) {
-        this.height = height;
+        this.height = height == null ? null : height.trim();
     }
 
     public String getWeight() {
@@ -296,7 +218,7 @@ public class MonsterInfo {
     }
 
     public void setWeight(String weight) {
-        this.weight = weight;
+        this.weight = weight == null ? null : weight.trim();
     }
 
     public String getGender() {
@@ -304,7 +226,7 @@ public class MonsterInfo {
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
+        this.gender = gender == null ? null : gender.trim();
     }
 
     public Short getFeatures() {
@@ -338,16 +260,4 @@ public class MonsterInfo {
     public void setChgMonId(Short chgMonId) {
         this.chgMonId = chgMonId;
     }
-
-	@Override
-	public String toString() {
-		return "MonsterInfo [numbersId=" + numbersId + ", id=" + id + ", defName=" + defName + ", growthType="
-				+ growthType + ", hp=" + hp + ", atk=" + atk + ", def=" + def + ", spAtk=" + spAtk + ", spDef=" + spDef
-				+ ", spd=" + spd + ", yieldingExp=" + yieldingExp + ", yieldingEv=" + yieldingEv + ", evolvesFrom="
-				+ evolvesFrom + ", evolvesTo=" + evolvesTo + ", evolvingLv=" + evolvingLv + ", type=" + type
-				+ ", catchRat=" + catchRat + ", evolvFlag=" + evolvFlag + ", freeForbidden=" + freeForbidden
-				+ ", height=" + height + ", weight=" + weight + ", gender=" + gender + ", features=" + features
-				+ ", ride=" + ride + ", useNum=" + useNum + ", chgMonId=" + chgMonId + "]";
-	}
-    
 }

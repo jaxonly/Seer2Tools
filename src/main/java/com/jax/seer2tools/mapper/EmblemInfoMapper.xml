@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jax.seer2tools.dao.EmblemInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jax.seer2tools.entity.EmblemInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="Numbers_ID" jdbcType="SMALLINT" property="numbersId" />
+    <result column="Honor_Price" jdbcType="SMALLINT" property="honorPrice" />
+    <result column="Mi_Buy_ID" jdbcType="INTEGER" property="miBuyId" />
+    <result column="Tip" jdbcType="VARCHAR" property="tip" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emblem_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jax.seer2tools.entity.EmblemInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into emblem_info (id, name, Numbers_ID, 
+      Honor_Price, Mi_Buy_ID, Tip
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{numbersId,jdbcType=SMALLINT}, 
+      #{honorPrice,jdbcType=SMALLINT}, #{miBuyId,jdbcType=INTEGER}, #{tip,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jax.seer2tools.entity.EmblemInfo">
+    update emblem_info
+    set name = #{name,jdbcType=VARCHAR},
+      Numbers_ID = #{numbersId,jdbcType=SMALLINT},
+      Honor_Price = #{honorPrice,jdbcType=SMALLINT},
+      Mi_Buy_ID = #{miBuyId,jdbcType=INTEGER},
+      Tip = #{tip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, Numbers_ID, Honor_Price, Mi_Buy_ID, Tip
+    from emblem_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, Numbers_ID, Honor_Price, Mi_Buy_ID, Tip
+    from emblem_info
+  </select>
+  <resultMap id="BaseResultMap" type="model.EmblemInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="Numbers_ID" jdbcType="SMALLINT" property="numbersId" />
+    <result column="Honor_Price" jdbcType="SMALLINT" property="honorPrice" />
+    <result column="Mi_Buy_ID" jdbcType="INTEGER" property="miBuyId" />
+    <result column="Tip" jdbcType="VARCHAR" property="tip" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from emblem_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="model.EmblemInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into emblem_info (id, name, Numbers_ID, 
+      Honor_Price, Mi_Buy_ID, Tip
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{numbersId,jdbcType=SMALLINT}, 
+      #{honorPrice,jdbcType=SMALLINT}, #{miBuyId,jdbcType=INTEGER}, #{tip,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="model.EmblemInfo">
+    update emblem_info
+    set name = #{name,jdbcType=VARCHAR},
+      Numbers_ID = #{numbersId,jdbcType=SMALLINT},
+      Honor_Price = #{honorPrice,jdbcType=SMALLINT},
+      Mi_Buy_ID = #{miBuyId,jdbcType=INTEGER},
+      Tip = #{tip,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, name, Numbers_ID, Honor_Price, Mi_Buy_ID, Tip
+    from emblem_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, Numbers_ID, Honor_Price, Mi_Buy_ID, Tip
+    from emblem_info
+  </select>
+</mapper>

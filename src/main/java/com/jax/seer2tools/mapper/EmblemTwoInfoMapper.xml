@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jax.seer2tools.dao.EmblemTwoInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jax.seer2tools.entity.EmblemTwoInfo">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="Numbers_ID" jdbcType="SMALLINT" property="numbersId" />
+    <result column="Tip" jdbcType="VARCHAR" property="tip" />
+  </resultMap>
+  <insert id="insert" parameterType="com.jax.seer2tools.entity.EmblemTwoInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into emblem_two_info (id, name, type, 
+      Numbers_ID, Tip)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=SMALLINT}, 
+      #{numbersId,jdbcType=SMALLINT}, #{tip,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, type, Numbers_ID, Tip
+    from emblem_two_info
+  </select>
+  <resultMap id="BaseResultMap" type="model.EmblemTwoInfo">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="type" jdbcType="SMALLINT" property="type" />
+    <result column="Numbers_ID" jdbcType="SMALLINT" property="numbersId" />
+    <result column="Tip" jdbcType="VARCHAR" property="tip" />
+  </resultMap>
+  <insert id="insert" parameterType="model.EmblemTwoInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into emblem_two_info (id, name, type, 
+      Numbers_ID, Tip)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{type,jdbcType=SMALLINT}, 
+      #{numbersId,jdbcType=SMALLINT}, #{tip,jdbcType=VARCHAR})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, name, type, Numbers_ID, Tip
+    from emblem_two_info
+  </select>
+</mapper>

@@ -1,14 +1,8 @@
 package com.jax.seer2tools.entity;
 
 public class HideMoveInfo {
-    /**
-     * 技能ID
-     */
     private Integer id;
 
-    /**
-     * 获得方式
-     */
     private String tips;
 
     public Integer getId() {
@@ -24,12 +18,6 @@ public class HideMoveInfo {
     }
 
     public void setTips(String tips) {
-        this.tips = tips;
+        this.tips = tips == null ? null : tips.trim();
     }
-
-	@Override
-	public String toString() {
-		return "HideMoveInfo [id=" + id + ", tips=" + tips + "]";
-	}
-
 }

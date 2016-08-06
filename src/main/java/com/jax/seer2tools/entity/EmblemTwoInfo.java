@@ -1,29 +1,14 @@
 package com.jax.seer2tools.entity;
 
 public class EmblemTwoInfo {
-    /**
-     * 编号
-     */
     private Integer id;
 
-    /**
-     * 名字
-     */
     private String name;
 
-    /**
-     * 
-     */
     private Short type;
 
-    /**
-     * 精灵编号
-     */
     private Short numbersId;
 
-    /**
-     * 描述
-     */
     private String tip;
 
     public Integer getId() {
@@ -39,7 +24,7 @@ public class EmblemTwoInfo {
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name = name == null ? null : name.trim();
     }
 
     public Short getType() {
@@ -63,14 +48,6 @@ public class EmblemTwoInfo {
     }
 
     public void setTip(String tip) {
-        this.tip = tip;
+        this.tip = tip == null ? null : tip.trim();
     }
-
-	@Override
-	public String toString() {
-		return "EmblemTwoInfo [id=" + id + ", name=" + name + ", type=" + type + ", numbersId=" + numbersId + ", tip="
-				+ tip + "]";
-	}
-    
-    
 }

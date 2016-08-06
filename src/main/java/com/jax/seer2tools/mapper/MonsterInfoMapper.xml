@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jax.seer2tools.dao.MonsterInfoMapper">
+  <resultMap id="BaseResultMap" type="com.jax.seer2tools.entity.MonsterInfo">
+    <id column="id" jdbcType="SMALLINT" property="id" />
+    <result column="numbers_id" jdbcType="INTEGER" property="numbersId" />
+    <result column="def_name" jdbcType="VARCHAR" property="defName" />
+    <result column="growth_type" jdbcType="TINYINT" property="growthType" />
+    <result column="hp" jdbcType="SMALLINT" property="hp" />
+    <result column="atk" jdbcType="SMALLINT" property="atk" />
+    <result column="def" jdbcType="SMALLINT" property="def" />
+    <result column="sp_atk" jdbcType="SMALLINT" property="spAtk" />
+    <result column="sp_def" jdbcType="SMALLINT" property="spDef" />
+    <result column="spd" jdbcType="SMALLINT" property="spd" />
+    <result column="yielding_exp" jdbcType="SMALLINT" property="yieldingExp" />
+    <result column="yielding_ev" jdbcType="SMALLINT" property="yieldingEv" />
+    <result column="evolves_from" jdbcType="SMALLINT" property="evolvesFrom" />
+    <result column="evolves_to" jdbcType="SMALLINT" property="evolvesTo" />
+    <result column="evolves_lv" jdbcType="SMALLINT" property="evolvesLv" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="catch_rat" jdbcType="TINYINT" property="catchRat" />
+    <result column="evolv_flag" jdbcType="SMALLINT" property="evolvFlag" />
+    <result column="free_forbidden" jdbcType="TINYINT" property="freeForbidden" />
+    <result column="height" jdbcType="VARCHAR" property="height" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="features" jdbcType="SMALLINT" property="features" />
+    <result column="ride" jdbcType="TINYINT" property="ride" />
+    <result column="use_num" jdbcType="TINYINT" property="useNum" />
+    <result column="chg_mon_id" jdbcType="SMALLINT" property="chgMonId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from monster_info
+    where id = #{id,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.jax.seer2tools.entity.MonsterInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into monster_info (id, numbers_id, def_name, 
+      growth_type, hp, atk, 
+      def, sp_atk, sp_def, 
+      spd, yielding_exp, yielding_ev, 
+      evolves_from, evolves_to, evolves_lv, 
+      type, catch_rat, evolv_flag, 
+      free_forbidden, height, weight, 
+      gender, features, ride, 
+      use_num, chg_mon_id)
+    values (#{id,jdbcType=SMALLINT}, #{numbersId,jdbcType=INTEGER}, #{defName,jdbcType=VARCHAR}, 
+      #{growthType,jdbcType=TINYINT}, #{hp,jdbcType=SMALLINT}, #{atk,jdbcType=SMALLINT}, 
+      #{def,jdbcType=SMALLINT}, #{spAtk,jdbcType=SMALLINT}, #{spDef,jdbcType=SMALLINT}, 
+      #{spd,jdbcType=SMALLINT}, #{yieldingExp,jdbcType=SMALLINT}, #{yieldingEv,jdbcType=SMALLINT}, 
+      #{evolvesFrom,jdbcType=SMALLINT}, #{evolvesTo,jdbcType=SMALLINT}, #{evolvesLv,jdbcType=SMALLINT}, 
+      #{type,jdbcType=TINYINT}, #{catchRat,jdbcType=TINYINT}, #{evolvFlag,jdbcType=SMALLINT}, 
+      #{freeForbidden,jdbcType=TINYINT}, #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=CHAR}, #{features,jdbcType=SMALLINT}, #{ride,jdbcType=TINYINT}, 
+      #{useNum,jdbcType=TINYINT}, #{chgMonId,jdbcType=SMALLINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.jax.seer2tools.entity.MonsterInfo">
+    update monster_info
+    set numbers_id = #{numbersId,jdbcType=INTEGER},
+      def_name = #{defName,jdbcType=VARCHAR},
+      growth_type = #{growthType,jdbcType=TINYINT},
+      hp = #{hp,jdbcType=SMALLINT},
+      atk = #{atk,jdbcType=SMALLINT},
+      def = #{def,jdbcType=SMALLINT},
+      sp_atk = #{spAtk,jdbcType=SMALLINT},
+      sp_def = #{spDef,jdbcType=SMALLINT},
+      spd = #{spd,jdbcType=SMALLINT},
+      yielding_exp = #{yieldingExp,jdbcType=SMALLINT},
+      yielding_ev = #{yieldingEv,jdbcType=SMALLINT},
+      evolves_from = #{evolvesFrom,jdbcType=SMALLINT},
+      evolves_to = #{evolvesTo,jdbcType=SMALLINT},
+      evolves_lv = #{evolvesLv,jdbcType=SMALLINT},
+      type = #{type,jdbcType=TINYINT},
+      catch_rat = #{catchRat,jdbcType=TINYINT},
+      evolv_flag = #{evolvFlag,jdbcType=SMALLINT},
+      free_forbidden = #{freeForbidden,jdbcType=TINYINT},
+      height = #{height,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=CHAR},
+      features = #{features,jdbcType=SMALLINT},
+      ride = #{ride,jdbcType=TINYINT},
+      use_num = #{useNum,jdbcType=TINYINT},
+      chg_mon_id = #{chgMonId,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select id, numbers_id, def_name, growth_type, hp, atk, def, sp_atk, sp_def, spd, 
+    yielding_exp, yielding_ev, evolves_from, evolves_to, evolves_lv, type, catch_rat, 
+    evolv_flag, free_forbidden, height, weight, gender, features, ride, use_num, chg_mon_id
+    from monster_info
+    where id = #{id,jdbcType=SMALLINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, numbers_id, def_name, growth_type, hp, atk, def, sp_atk, sp_def, spd, 
+    yielding_exp, yielding_ev, evolves_from, evolves_to, evolves_lv, type, catch_rat, 
+    evolv_flag, free_forbidden, height, weight, gender, features, ride, use_num, chg_mon_id
+    from monster_info
+  </select>
+  <resultMap id="BaseResultMap" type="model.MonsterInfo">
+    <id column="id" jdbcType="SMALLINT" property="id" />
+    <result column="numbers_id" jdbcType="INTEGER" property="numbersId" />
+    <result column="def_name" jdbcType="VARCHAR" property="defName" />
+    <result column="growth_type" jdbcType="TINYINT" property="growthType" />
+    <result column="hp" jdbcType="SMALLINT" property="hp" />
+    <result column="atk" jdbcType="SMALLINT" property="atk" />
+    <result column="def" jdbcType="SMALLINT" property="def" />
+    <result column="sp_atk" jdbcType="SMALLINT" property="spAtk" />
+    <result column="sp_def" jdbcType="SMALLINT" property="spDef" />
+    <result column="spd" jdbcType="SMALLINT" property="spd" />
+    <result column="yielding_exp" jdbcType="SMALLINT" property="yieldingExp" />
+    <result column="yielding_ev" jdbcType="SMALLINT" property="yieldingEv" />
+    <result column="evolves_from" jdbcType="SMALLINT" property="evolvesFrom" />
+    <result column="evolves_to" jdbcType="SMALLINT" property="evolvesTo" />
+    <result column="evolves_lv" jdbcType="SMALLINT" property="evolvesLv" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="catch_rat" jdbcType="TINYINT" property="catchRat" />
+    <result column="evolv_flag" jdbcType="SMALLINT" property="evolvFlag" />
+    <result column="free_forbidden" jdbcType="TINYINT" property="freeForbidden" />
+    <result column="height" jdbcType="VARCHAR" property="height" />
+    <result column="weight" jdbcType="VARCHAR" property="weight" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="features" jdbcType="SMALLINT" property="features" />
+    <result column="ride" jdbcType="TINYINT" property="ride" />
+    <result column="use_num" jdbcType="TINYINT" property="useNum" />
+    <result column="chg_mon_id" jdbcType="SMALLINT" property="chgMonId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from monster_info
+    where id = #{id,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="model.MonsterInfo">
+    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into monster_info (id, numbers_id, def_name, 
+      growth_type, hp, atk, 
+      def, sp_atk, sp_def, 
+      spd, yielding_exp, yielding_ev, 
+      evolves_from, evolves_to, evolves_lv, 
+      type, catch_rat, evolv_flag, 
+      free_forbidden, height, weight, 
+      gender, features, ride, 
+      use_num, chg_mon_id)
+    values (#{id,jdbcType=SMALLINT}, #{numbersId,jdbcType=INTEGER}, #{defName,jdbcType=VARCHAR}, 
+      #{growthType,jdbcType=TINYINT}, #{hp,jdbcType=SMALLINT}, #{atk,jdbcType=SMALLINT}, 
+      #{def,jdbcType=SMALLINT}, #{spAtk,jdbcType=SMALLINT}, #{spDef,jdbcType=SMALLINT}, 
+      #{spd,jdbcType=SMALLINT}, #{yieldingExp,jdbcType=SMALLINT}, #{yieldingEv,jdbcType=SMALLINT}, 
+      #{evolvesFrom,jdbcType=SMALLINT}, #{evolvesTo,jdbcType=SMALLINT}, #{evolvesLv,jdbcType=SMALLINT}, 
+      #{type,jdbcType=TINYINT}, #{catchRat,jdbcType=TINYINT}, #{evolvFlag,jdbcType=SMALLINT}, 
+      #{freeForbidden,jdbcType=TINYINT}, #{height,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=CHAR}, #{features,jdbcType=SMALLINT}, #{ride,jdbcType=TINYINT}, 
+      #{useNum,jdbcType=TINYINT}, #{chgMonId,jdbcType=SMALLINT})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="model.MonsterInfo">
+    update monster_info
+    set numbers_id = #{numbersId,jdbcType=INTEGER},
+      def_name = #{defName,jdbcType=VARCHAR},
+      growth_type = #{growthType,jdbcType=TINYINT},
+      hp = #{hp,jdbcType=SMALLINT},
+      atk = #{atk,jdbcType=SMALLINT},
+      def = #{def,jdbcType=SMALLINT},
+      sp_atk = #{spAtk,jdbcType=SMALLINT},
+      sp_def = #{spDef,jdbcType=SMALLINT},
+      spd = #{spd,jdbcType=SMALLINT},
+      yielding_exp = #{yieldingExp,jdbcType=SMALLINT},
+      yielding_ev = #{yieldingEv,jdbcType=SMALLINT},
+      evolves_from = #{evolvesFrom,jdbcType=SMALLINT},
+      evolves_to = #{evolvesTo,jdbcType=SMALLINT},
+      evolves_lv = #{evolvesLv,jdbcType=SMALLINT},
+      type = #{type,jdbcType=TINYINT},
+      catch_rat = #{catchRat,jdbcType=TINYINT},
+      evolv_flag = #{evolvFlag,jdbcType=SMALLINT},
+      free_forbidden = #{freeForbidden,jdbcType=TINYINT},
+      height = #{height,jdbcType=VARCHAR},
+      weight = #{weight,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=CHAR},
+      features = #{features,jdbcType=SMALLINT},
+      ride = #{ride,jdbcType=TINYINT},
+      use_num = #{useNum,jdbcType=TINYINT},
+      chg_mon_id = #{chgMonId,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=SMALLINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select id, numbers_id, def_name, growth_type, hp, atk, def, sp_atk, sp_def, spd, 
+    yielding_exp, yielding_ev, evolves_from, evolves_to, evolves_lv, type, catch_rat, 
+    evolv_flag, free_forbidden, height, weight, gender, features, ride, use_num, chg_mon_id
+    from monster_info
+    where id = #{id,jdbcType=SMALLINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select id, numbers_id, def_name, growth_type, hp, atk, def, sp_atk, sp_def, spd, 
+    yielding_exp, yielding_ev, evolves_from, evolves_to, evolves_lv, type, catch_rat, 
+    evolv_flag, free_forbidden, height, weight, gender, features, ride, use_num, chg_mon_id
+    from monster_info
+  </select>
+</mapper>
