@@ -3,6 +3,8 @@ package com.jax.seer2tools.dao;
 import com.jax.seer2tools.entity.SkillInfo;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+@Repository
 public interface SkillInfoMapper {
     int deleteByPrimaryKey(Integer id);
 

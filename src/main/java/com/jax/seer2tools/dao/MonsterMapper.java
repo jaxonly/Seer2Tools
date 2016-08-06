@@ -3,6 +3,8 @@ package com.jax.seer2tools.dao;
 import com.jax.seer2tools.entity.Monster;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+@Repository
 public interface MonsterMapper {
     int deleteByPrimaryKey(Short id);
 
