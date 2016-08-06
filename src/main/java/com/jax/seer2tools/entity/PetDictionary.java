@@ -190,4 +190,15 @@ public class PetDictionary {
     public void setSupermodule(String supermodule) {
         this.supermodule = supermodule == null ? null : supermodule.trim();
     }
+
+	@Override
+	public String toString() {
+		return "PetDictionary [id=" + id + ", numbersId=" + numbersId + ", emblemId=" + emblemId + ", defName="
+				+ defName + ", type=" + type + ", height=" + height + ", weight=" + weight + ", foundin=" + foundin
+				+ ", isNew=" + isNew + ", features=" + features + ", intro=" + intro + ", chara=" + chara
+				+ ", charaPoint=" + charaPoint + ", recommendQuality=" + recommendQuality + ", recommendSkill="
+				+ recommendSkill + ", getWay=" + getWay + ", isClose=" + isClose + ", changeTip=" + changeTip
+				+ ", supermodule=" + supermodule + "]";
+	}
+    
 }

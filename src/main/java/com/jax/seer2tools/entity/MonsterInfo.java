@@ -260,4 +260,16 @@ public class MonsterInfo {
     public void setChgMonId(Short chgMonId) {
         this.chgMonId = chgMonId;
     }
+
+	@Override
+	public String toString() {
+		return "MonsterInfo [id=" + id + ", numbersId=" + numbersId + ", defName=" + defName + ", growthType="
+				+ growthType + ", hp=" + hp + ", atk=" + atk + ", def=" + def + ", spAtk=" + spAtk + ", spDef=" + spDef
+				+ ", spd=" + spd + ", yieldingExp=" + yieldingExp + ", yieldingEv=" + yieldingEv + ", evolvesFrom="
+				+ evolvesFrom + ", evolvesTo=" + evolvesTo + ", evolvesLv=" + evolvesLv + ", type=" + type
+				+ ", catchRat=" + catchRat + ", evolvFlag=" + evolvFlag + ", freeForbidden=" + freeForbidden
+				+ ", height=" + height + ", weight=" + weight + ", gender=" + gender + ", features=" + features
+				+ ", ride=" + ride + ", useNum=" + useNum + ", chgMonId=" + chgMonId + "]";
+	}
+    
 }

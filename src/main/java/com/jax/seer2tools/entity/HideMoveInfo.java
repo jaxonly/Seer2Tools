@@ -20,4 +20,10 @@ public class HideMoveInfo {
     public void setTips(String tips) {
         this.tips = tips == null ? null : tips.trim();
     }
+
+	@Override
+	public String toString() {
+		return "HideMoveInfo [id=" + id + ", tips=" + tips + "]";
+	}
+    
 }

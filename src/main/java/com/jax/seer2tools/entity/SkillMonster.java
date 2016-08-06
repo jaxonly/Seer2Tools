@@ -30,4 +30,10 @@ public class SkillMonster {
     public void setSkillId(Integer skillId) {
         this.skillId = skillId;
     }
+
+	@Override
+	public String toString() {
+		return "SkillMonster [monsterId=" + monsterId + ", learningLv=" + learningLv + ", skillId=" + skillId + "]";
+	}
+    
 }

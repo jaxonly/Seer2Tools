@@ -90,4 +90,12 @@ public class SkillInfo {
     public void setChgMoveId(Integer chgMoveId) {
         this.chgMoveId = chgMoveId;
     }
+
+	@Override
+	public String toString() {
+		return "SkillInfo [id=" + id + ", name=" + name + ", category=" + category + ", type=" + type + ", power="
+				+ power + ", accuracy=" + accuracy + ", anger=" + anger + ", tips=" + tips + ", chgMoveId=" + chgMoveId
+				+ "]";
+	}
+    
 }

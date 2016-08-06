@@ -20,4 +20,10 @@ public class Monster {
     public void setDefName(String defName) {
         this.defName = defName == null ? null : defName.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Monster [id=" + id + ", defName=" + defName + "]";
+	}
+    
 }

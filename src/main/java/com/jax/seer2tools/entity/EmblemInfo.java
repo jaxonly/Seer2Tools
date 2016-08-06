@@ -60,4 +60,11 @@ public class EmblemInfo {
     public void setTip(String tip) {
         this.tip = tip == null ? null : tip.trim();
     }
+
+	@Override
+	public String toString() {
+		return "EmblemInfo [id=" + id + ", name=" + name + ", numbersId=" + numbersId + ", honorPrice=" + honorPrice
+				+ ", miBuyId=" + miBuyId + ", tip=" + tip + "]";
+	}
+    
 }
