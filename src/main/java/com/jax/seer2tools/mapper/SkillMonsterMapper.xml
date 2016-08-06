@@ -16,19 +16,4 @@
     select monster_id, Learning_Lv, skill_id
     from skill_monster
   </select>
-  <resultMap id="BaseResultMap" type="model.SkillMonster">
-    <result column="monster_id" jdbcType="SMALLINT" property="monsterId" />
-    <result column="Learning_Lv" jdbcType="SMALLINT" property="learningLv" />
-    <result column="skill_id" jdbcType="INTEGER" property="skillId" />
-  </resultMap>
-  <insert id="insert" parameterType="model.SkillMonster">
-    insert into skill_monster (monster_id, Learning_Lv, skill_id
-      )
-    values (#{monsterId,jdbcType=SMALLINT}, #{learningLv,jdbcType=SMALLINT}, #{skillId,jdbcType=INTEGER}
-      )
-  </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select monster_id, Learning_Lv, skill_id
-    from skill_monster
-  </select>
 </mapper>

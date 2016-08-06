@@ -16,19 +16,4 @@
     select id, tips
     from hide_move_info
   </select>
-  <resultMap id="BaseResultMap" type="model.HideMoveInfo">
-    <result column="id" jdbcType="INTEGER" property="id" />
-    <result column="tips" jdbcType="VARCHAR" property="tips" />
-  </resultMap>
-  <insert id="insert" parameterType="model.HideMoveInfo">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into hide_move_info (id, tips)
-    values (#{id,jdbcType=INTEGER}, #{tips,jdbcType=VARCHAR})
-  </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, tips
-    from hide_move_info
-  </select>
 </mapper>

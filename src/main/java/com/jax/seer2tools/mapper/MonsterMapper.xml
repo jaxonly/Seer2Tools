@@ -30,33 +30,4 @@
     select id, def_name
     from monster
   </select>
-  <resultMap id="BaseResultMap" type="model.Monster">
-    <id column="id" jdbcType="SMALLINT" property="id" />
-    <result column="def_name" jdbcType="VARCHAR" property="defName" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
-    delete from monster
-    where id = #{id,jdbcType=SMALLINT}
-  </delete>
-  <insert id="insert" parameterType="model.Monster">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into monster (id, def_name)
-    values (#{id,jdbcType=SMALLINT}, #{defName,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="model.Monster">
-    update monster
-    set def_name = #{defName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=SMALLINT}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
-    select id, def_name
-    from monster
-    where id = #{id,jdbcType=SMALLINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, def_name
-    from monster
-  </select>
 </mapper>
