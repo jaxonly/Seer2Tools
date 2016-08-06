@@ -28,6 +28,19 @@
     <result column="ride" jdbcType="TINYINT" property="ride" />
     <result column="use_num" jdbcType="TINYINT" property="useNum" />
     <result column="chg_mon_id" jdbcType="SMALLINT" property="chgMonId" />
+    
+    <association property="evolvesFromInfo"
+			javaType="com.jax.seer2tools.entity.Monster">
+			<!-- id:关联查询用户的唯一标识 column:指定唯一标识用户信息的列 property:映射到user的那个属性 -->
+		    <id column="frid" jdbcType="SMALLINT" property="id" />
+		    <result column="frname" jdbcType="VARCHAR" property="defName" />
+	</association>
+	<association property="evolvesToInfo"
+			javaType="com.jax.seer2tools.entity.Monster">
+			<!-- id:关联查询用户的唯一标识 column:指定唯一标识用户信息的列 property:映射到user的那个属性 -->
+		    <id column="toid" jdbcType="SMALLINT" property="id" />
+		    <result column="toname" jdbcType="VARCHAR" property="defName" />
+	</association>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
     delete from monster_info
@@ -86,11 +99,12 @@
     where id = #{id,jdbcType=SMALLINT}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
-    select id, numbers_id, def_name, growth_type, hp, atk, def, sp_atk, sp_def, spd, 
-    yielding_exp, yielding_ev, evolves_from, evolves_to, evolves_lv, type, catch_rat, 
-    evolv_flag, free_forbidden, height, weight, gender, features, ride, use_num, chg_mon_id
-    from monster_info
-    where id = #{id,jdbcType=SMALLINT}
+    select a.id, a.numbers_id, a.def_name, a.growth_type, a.hp, a.atk, a.def, a.sp_atk, a.sp_def, a.spd, a.
+    yielding_exp, a.yielding_ev, a.evolves_from, a.evolves_to, a.evolves_lv, a.type, a.catch_rat, a.
+    evolv_flag, a.free_forbidden, a.height, a.weight, a.gender, a.features, a.ride, a.use_num, a.chg_mon_id
+    ,b.id as frid,b.def_name as frname,c.id as toid,c.def_name as toname
+	 from monster_info as a,monster as b,monster as c
+    where a.id = #{id,jdbcType=SMALLINT} and a.evolves_from = b.id and a.evolves_to = c.id
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select id, numbers_id, def_name, growth_type, hp, atk, def, sp_atk, sp_def, spd, 

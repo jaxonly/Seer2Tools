@@ -38,6 +38,8 @@ public class PetDictionary {
     private String changeTip;
 
     private String supermodule;
+    
+    private EmblemInfo emblem;
 
     public Short getId() {
         return id;
@@ -190,6 +192,14 @@ public class PetDictionary {
     public void setSupermodule(String supermodule) {
         this.supermodule = supermodule == null ? null : supermodule.trim();
     }
+    
+	public EmblemInfo getEmblem() {
+		return emblem;
+	}
+
+	public void setEmblem(EmblemInfo emblem) {
+		this.emblem = emblem;
+	}
 
 	@Override
 	public String toString() {
@@ -198,7 +208,7 @@ public class PetDictionary {
 				+ ", isNew=" + isNew + ", features=" + features + ", intro=" + intro + ", chara=" + chara
 				+ ", charaPoint=" + charaPoint + ", recommendQuality=" + recommendQuality + ", recommendSkill="
 				+ recommendSkill + ", getWay=" + getWay + ", isClose=" + isClose + ", changeTip=" + changeTip
-				+ ", supermodule=" + supermodule + "]";
+				+ ", supermodule=" + supermodule + ", emblem=" + emblem + "]";
 	}
     
 }

@@ -6,6 +6,8 @@ public class SkillMonster {
     private Short learningLv;
 
     private Integer skillId;
+    
+    private SkillInfo skill;
 
     public Short getMonsterId() {
         return monsterId;
@@ -30,10 +32,21 @@ public class SkillMonster {
     public void setSkillId(Integer skillId) {
         this.skillId = skillId;
     }
+    
+	public SkillInfo getSkill() {
+		return skill;
+	}
+
+	public void setSkill(SkillInfo skill) {
+		this.skill = skill;
+	}
 
 	@Override
 	public String toString() {
-		return "SkillMonster [monsterId=" + monsterId + ", learningLv=" + learningLv + ", skillId=" + skillId + "]";
+		return "SkillMonster [monsterId=" + monsterId + ", learningLv=" + learningLv + ", skillId=" + skillId
+				+ ", skill=" + skill + ", getMonsterId()=" + getMonsterId() + ", getLearningLv()=" + getLearningLv()
+				+ ", getSkillId()=" + getSkillId() + ", getSkill()=" + getSkill() + ", getClass()=" + getClass()
+				+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
 	}
     
 }

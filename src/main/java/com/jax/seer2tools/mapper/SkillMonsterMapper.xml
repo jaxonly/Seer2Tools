@@ -5,6 +5,19 @@
     <result column="monster_id" jdbcType="SMALLINT" property="monsterId" />
     <result column="Learning_Lv" jdbcType="SMALLINT" property="learningLv" />
     <result column="skill_id" jdbcType="INTEGER" property="skillId" />
+    <association property="skill"
+			javaType="com.jax.seer2tools.entity.SkillInfo">
+			<!-- id:关联查询用户的唯一标识 column:指定唯一标识用户信息的列 property:映射到user的那个属性 -->
+		    <id column="skill_id" jdbcType="INTEGER" property="id" />
+		    <result column="name" jdbcType="VARCHAR" property="name" />
+		    <result column="category" jdbcType="TINYINT" property="category" />
+		    <result column="type" jdbcType="TINYINT" property="type" />
+		    <result column="power" jdbcType="INTEGER" property="power" />
+		    <result column="accuracy" jdbcType="SMALLINT" property="accuracy" />
+		    <result column="anger" jdbcType="TINYINT" property="anger" />
+		    <result column="tips" jdbcType="VARCHAR" property="tips" />
+		    <result column="chg_move_id" jdbcType="INTEGER" property="chgMoveId" />
+	</association>
   </resultMap>
   <insert id="insert" parameterType="com.jax.seer2tools.entity.SkillMonster">
     insert into skill_monster (monster_id, Learning_Lv, skill_id
@@ -12,8 +25,10 @@
     values (#{monsterId,jdbcType=SMALLINT}, #{learningLv,jdbcType=SMALLINT}, #{skillId,jdbcType=INTEGER}
       )
   </insert>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select monster_id, Learning_Lv, skill_id
-    from skill_monster
+  <select id="selectAll" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select monster_id, Learning_Lv, skill_id,b.id,b.name,b.category,b.`type`,b.power,
+	 b.accuracy,b.anger,b.tips,b.chg_move_id
+    from skill_monster as a,skill_info as b
+    where a.monster_id = #{id,jdbcType=SMALLINT} and a.skill_id = b.id
   </select>
 </mapper>

@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 public interface SkillMonsterMapper {
     int insert(SkillMonster record);
 
-    List<SkillMonster> selectAll();
+    List<SkillMonster> selectAll(Short id);
 }

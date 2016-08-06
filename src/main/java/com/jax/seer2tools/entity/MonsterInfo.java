@@ -52,7 +52,11 @@ public class MonsterInfo {
     private Byte useNum;
 
     private Short chgMonId;
+    
+    private Monster evolvesFromInfo;
 
+    private Monster evolvesToInfo;
+    
     public Short getId() {
         return id;
     }
@@ -261,6 +265,23 @@ public class MonsterInfo {
         this.chgMonId = chgMonId;
     }
 
+    
+	public Monster getEvolvesFromInfo() {
+		return evolvesFromInfo;
+	}
+
+	public void setEvolvesFromInfo(Monster evolvesFromInfo) {
+		this.evolvesFromInfo = evolvesFromInfo;
+	}
+
+	public Monster getEvolvesToInfo() {
+		return evolvesToInfo;
+	}
+
+	public void setEvolvesToInfo(Monster evolvesToInfo) {
+		this.evolvesToInfo = evolvesToInfo;
+	}
+
 	@Override
 	public String toString() {
 		return "MonsterInfo [id=" + id + ", numbersId=" + numbersId + ", defName=" + defName + ", growthType="
@@ -269,7 +290,8 @@ public class MonsterInfo {
 				+ evolvesFrom + ", evolvesTo=" + evolvesTo + ", evolvesLv=" + evolvesLv + ", type=" + type
 				+ ", catchRat=" + catchRat + ", evolvFlag=" + evolvFlag + ", freeForbidden=" + freeForbidden
 				+ ", height=" + height + ", weight=" + weight + ", gender=" + gender + ", features=" + features
-				+ ", ride=" + ride + ", useNum=" + useNum + ", chgMonId=" + chgMonId + "]";
+				+ ", ride=" + ride + ", useNum=" + useNum + ", chgMonId=" + chgMonId + ", evolvesFromInfo="
+				+ evolvesFromInfo + ", evolvesToInfo=" + evolvesToInfo + "]";
 	}
     
 }
