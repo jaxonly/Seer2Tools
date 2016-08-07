@@ -33,7 +33,7 @@ public class MonsterInfo {
 
     private Byte type;
 
-    private Byte catchRat;
+    private Short catchRat;
 
     private Short evolvFlag;
 
@@ -185,11 +185,11 @@ public class MonsterInfo {
         this.type = type;
     }
 
-    public Byte getCatchRat() {
+    public Short getCatchRat() {
         return catchRat;
     }
 
-    public void setCatchRat(Byte catchRat) {
+    public void setCatchRat(Short catchRat) {
         this.catchRat = catchRat;
     }
 

@@ -30,5 +30,6 @@
 	 b.accuracy,b.anger,b.tips,b.chg_move_id
     from skill_monster as a,skill_info as b
     where a.monster_id = #{id,jdbcType=SMALLINT} and a.skill_id = b.id
+    order by Learning_Lv
   </select>
 </mapper>

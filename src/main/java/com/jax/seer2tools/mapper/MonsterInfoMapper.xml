@@ -18,7 +18,7 @@
     <result column="evolves_to" jdbcType="SMALLINT" property="evolvesTo" />
     <result column="evolves_lv" jdbcType="SMALLINT" property="evolvesLv" />
     <result column="type" jdbcType="TINYINT" property="type" />
-    <result column="catch_rat" jdbcType="TINYINT" property="catchRat" />
+    <result column="catch_rat" jdbcType="SMALLINT" property="catchRat" />
     <result column="evolv_flag" jdbcType="SMALLINT" property="evolvFlag" />
     <result column="free_forbidden" jdbcType="TINYINT" property="freeForbidden" />
     <result column="height" jdbcType="VARCHAR" property="height" />

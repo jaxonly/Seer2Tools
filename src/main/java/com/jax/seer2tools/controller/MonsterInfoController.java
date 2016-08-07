@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.jax.seer2tools.entity.MonsterInfo;
 import com.jax.seer2tools.entity.PetDictionary;
 import com.jax.seer2tools.entity.SkillMonster;
@@ -39,9 +40,11 @@ public class MonsterInfoController {
 			pageNum=1;
 		}
 		List<PetDictionary> pd = ipd.queryPetByPage(pageNum, 20);
+		PageInfo<?> info = new PageInfo<>(pd);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PetInfo", pd);
 		mv.addObject("PageNum", pageNum);
+		mv.addObject("EndPageNum", info.getPages());
 		mv.setViewName("index");
 		return mv;
 	}
@@ -52,14 +55,13 @@ public class MonsterInfoController {
 	private ModelAndView info(
 			@PathVariable("PetId") Short PetId) {
 		PetDictionary pd = ipd.queryOneById(PetId);
-		System.out.println(pd);
 		MonsterInfo mi =ims.queryMonsterInfoById(PetId);
-		System.out.println(mi);
 		List<SkillMonster> sks = ism.querySkillMonsterAll(PetId);
-		for (SkillMonster skillMonster : sks) {
-			System.out.println(skillMonster);
-		}
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("pd", pd);
+		mv.addObject("mi", mi);
+		mv.addObject("Skills", sks);
+		mv.setViewName("info");
 		return mv;
 	}
 }

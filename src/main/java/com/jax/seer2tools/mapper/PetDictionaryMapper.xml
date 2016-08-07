@@ -83,7 +83,7 @@
 	<select id="selectByPrimaryKey" parameterType="java.lang.Short"
 		resultMap="BaseResultMap">
 		select a.ID, a.Numbers_ID, b.name, b.tip,a.Def_Name, a.Type, a.Height, a.Weight, a.Foundin,
-		a.is_New, a.Features, a.intro, a.chara, a.chara_Point,
+		a.is_New, a.Features, a.intro, a.chara, a.chara_Point,a.recommend_Quality, a.recommend_Skill,
 		a.get_Way, a.is_Close, a.change_Tip
 		from pet_dictionary as a,emblem_info as b
 		where a.ID = #{id,jdbcType=SMALLINT} and a.emblem_ID = b.id
