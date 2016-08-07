@@ -80,7 +80,7 @@ public class ParseXML {
 				ps.setShort(14, Short.parseShort(replaceNull(monster.attributeValue("EvolvesTo"))));
 				ps.setShort(15, Short.parseShort(replaceNull(monster.attributeValue("EvolvingLv"))));
 				ps.setByte(16, Byte.parseByte(replaceNull(monster.attributeValue("Type"))));
-				ps.setByte(17, Byte.parseByte(replaceNull(monster.attributeValue("CatchRat"))));
+				ps.setShort(17, Short.parseShort(replaceNull(monster.attributeValue("CatchRate"))));
 				ps.setShort(18, Short.parseShort(replaceNull(monster.attributeValue("EvolvFlag"))));
 				ps.setByte(19, Byte.parseByte(replaceNull(monster.attributeValue("FreeForbidden"))));
 				ps.setString(20, monster.attributeValue("Height"));
