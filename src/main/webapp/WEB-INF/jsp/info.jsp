@@ -139,13 +139,15 @@
 							<c:if test="${mi.evolvesFromInfo.id!=0 }">
 								<tr>
 									<td>上一形态</td>
-									<td>${mi.evolvesFromInfo.defName }</td>
+									<td><a
+										href="${pageContext.request.contextPath}/monsterinfo/info/${ mi.evolvesFromInfo.id }">${mi.evolvesFromInfo.defName }</a></td>
 								<tr>
 							</c:if>
 							<c:if test="${mi.evolvesToInfo.id!=0 }">
 								<tr>
 									<td>下一形态</td>
-									<td>${mi.evolvesToInfo.defName }</td>
+									<td><a
+										href="${pageContext.request.contextPath}/monsterinfo/info/${ mi.evolvesToInfo.id }">${mi.evolvesToInfo.defName }</a></td>
 								<tr>
 								<tr>
 									<td>进化下一形态等级</td>
