@@ -13,6 +13,8 @@ public interface PetDictionaryMapper {
     PetDictionary selectByPrimaryKey(Short id);
 
     List<PetDictionary> selectAll();
+    
+    List<PetDictionary> selectByLikeName(String name);
 
     int updateByPrimaryKey(PetDictionary record);
 }

@@ -3,9 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%
-	
-%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,47 +37,69 @@
 	</nav>
 
 	<div style="height: 100px"></div>
-
 	<div class="container">
 		<div class="blog-header">
 			<h1 class="blog-title">精灵信息查询工具</h1>
 			<p class="lead blog-description">最详细的精灵信息查询工具</p>
+
 		</div>
 		<div class="row">
 			<div class="col-sm-8 blog-main">
-				<table class="table table-striped">
-					<th>
-					<td>名字</td>
-					<td>属性</td>
-					</th>
-					<c:forEach items="${PetInfo}" var="pet">
-						<tr>
-							<td>${pet.id }</td>
-							<td><a
-								href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">${pet.defName }</a></td>
-							<td>${pet.type }</td>
-						</tr>
-					</c:forEach>
-				</table>
-				<nav>
-					<ul class="pager">
-						<c:if test="${PageNum!=1}">
-							<li><a
-								href="${pageContext.request.contextPath}/monsterinfo/${ PageNum-1 }">Previous</a></li>
-						</c:if>
-						<c:if test="${PageNum==1}">
-							<li class="disabled"><a>Previous</a></li>
-						</c:if>
-						<!-- 下一页 -->
-						<c:if test="${PageNum != EndPageNum }">
-							<li><a
-								href="${pageContext.request.contextPath}/monsterinfo/${ PageNum+1 }">Next</a></li>
-						</c:if>
-						<c:if test="${PageNum == EndPageNum }">
-							<li class="disabled"><a>Next</a></li>
-						</c:if>
-					</ul>
-				</nav>
+				<div style="float: right;">
+					<input type="text" class="form-control" id="queryText"
+						style="width: 120px; display: inline-block; margin: 10px 10px 10px 10px">
+					<button class="btn btn-success" id="query">搜索</button>
+				</div>
+				<c:if test="${PetSize != 0}">
+									<table class="table table-striped">
+										<th>
+										<td>名字</td>
+										<td>属性</td>
+										</th>
+										<c:forEach items="${PetInfo}" var="pet">
+											<tr>
+												<td>${pet.id }</td>
+												<td><a
+													href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">${pet.defName }</a></td>
+												<td>${pet.type }</td>
+											</tr>
+										</c:forEach>
+									</table>
+									<nav>
+										<ul class="pager">
+											<c:if test="${PageNum!=1}">
+												<li><a
+													href="${pageContext.request.contextPath}/monsterinfo/
+													<c:if test="${defName != null }">
+														queryName/${ defName}/
+													</c:if>
+													
+													${ PageNum-1 }">Previous</a></li>
+											</c:if>
+											<c:if test="${PageNum==1}">
+												<li class="disabled"><a>Previous</a></li>
+											</c:if>
+					
+					
+											<!-- 下一页 -->
+											<c:if test="${PageNum != EndPageNum }">
+												<li><a
+													href="${pageContext.request.contextPath}/monsterinfo/
+													<c:if test="${defName != null }">
+														queryName/${ defName}/
+													</c:if>
+													
+													${ PageNum+1 }">Next</a></li>
+											</c:if>
+											<c:if test="${PageNum == EndPageNum }">
+												<li class="disabled"><a>Next</a></li>
+											</c:if>
+										</ul>
+									</nav>
+				</c:if>
+				<c:if test="${PetSize == 0}">
+					找不到精灵了~
+				</c:if>
 			</div>
 			<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
 				<div class="sidebar-module">
@@ -100,5 +120,14 @@
 		<hr>
 		<p align="center">Power By Jax</p>
 	</footer>
+	<script type="text/javascript">
+		$("#query")
+				.click(
+						function() {
+							var str = $("#queryText").val();
+							location.href = "${pageContext.request.contextPath}/monsterinfo/queryName/"
+									+ str;
+						});
+	</script>
 </body>
 </html>

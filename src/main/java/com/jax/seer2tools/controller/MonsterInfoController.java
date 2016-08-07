@@ -44,7 +44,36 @@ public class MonsterInfoController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PetInfo", pd);
 		mv.addObject("PageNum", pageNum);
+		mv.addObject("PetSize", info.getSize());
 		mv.addObject("EndPageNum", info.getPages());
+		mv.setViewName("index");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value = "/queryName/{defName}")
+	private ModelAndView queryByDefName(
+			@PathVariable("defName") String defName) {
+		return this.queryByDefName(1,defName);
+	}
+	@RequestMapping(value = "/queryName/{defName}/{pageNum}")
+	private ModelAndView queryByDefName(
+			@PathVariable("pageNum") Integer pageNum,
+			@PathVariable("defName") String defName) {
+		if (pageNum==null) {
+			pageNum=1;
+		}
+		if (defName==null) {
+			defName="";
+		}
+		List<PetDictionary> pd = ipd.queryPetByPageAndName(pageNum, 20, defName);
+		PageInfo<?> info = new PageInfo<>(pd);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("PetInfo", pd);
+		mv.addObject("PageNum", pageNum);
+		mv.addObject("PetSize", info.getSize());
+		mv.addObject("EndPageNum", info.getPages());
+		mv.addObject("defName", defName);
 		mv.setViewName("index");
 		return mv;
 	}
