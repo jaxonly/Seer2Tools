@@ -51,7 +51,7 @@
 	</servlet-mapping>
 	
 	<welcome-file-list>
-		<welcome-file>/monsterinfo</welcome-file>
+		<welcome-file>cdx.jsp</welcome-file>
 	</welcome-file-list>
 	
 </web-app>
