@@ -47,7 +47,7 @@
 				<h1>${pd.defName}
 
 
-					<c:if test="${mi.freeForbidden!=0 }">
+					<c:if test="${mi.freeForbidden==0 }">
 						<span class="label label-success">可放生</span>
 					</c:if>
 
@@ -196,7 +196,14 @@
 							<c:if test="${mi.useNum!=null }">
 								<tr>
 									<td>同时上场精灵数</td>
-									<td>${mi.useNum }</td>
+									<td>
+										<c:if test="${mi.useNum == 0}">
+											无限制
+										</c:if>
+										<c:if test="${mi.useNum != 0}">
+											${mi.useNum }
+										</c:if>
+									</td>
 								</tr>
 							</c:if>
 						</table>
@@ -236,7 +243,7 @@
 								<td>${mi.spd+50}</td>
 							</tr>
 							<tr>
-								<td>种族值</td>
+								<td>极限值</td>
 								<td><fmt:formatNumber
 										value="${( (mi.hp*2 + 120) * 100/100 + 100 + 10 + 255/4) *1.1
 }"
@@ -314,6 +321,7 @@
 					<ol class="list-unstyled">
 						<li><a href="https://github.com/JaxXu">GitHub</a></li>
 						<li><a href="http://weibo.com/topjsz">WeiBo</a></li>
+						<li><b><a href="https://github.com/JaxXu/Seer2Tools/issues">提建议</a></b></li>
 					</ol>
 				</div>
 			</div>
@@ -326,7 +334,7 @@
 
 	<footer class="blog-footer">
 		<hr>
-		<p align="center">Power By Jax</p>
+		<p align="center">Powered by Jax</p>
 	</footer>
 	<script type="text/javascript">
 		function Type() {

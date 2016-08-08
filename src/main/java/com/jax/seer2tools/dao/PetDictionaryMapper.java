@@ -16,5 +16,6 @@ public interface PetDictionaryMapper {
     
     List<PetDictionary> selectByLikeName(String name);
 
+    List<PetDictionary> selectByLikeType(String name);
     int updateByPrimaryKey(PetDictionary record);
 }

@@ -105,4 +105,13 @@
 		from pet_dictionary
 		where Def_Name like '%${_parameter}%'
 	</select>
+	<select id="selectByLikeType" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select ID, Numbers_ID, emblem_ID, Def_Name, Type, Height, Weight, Foundin,
+		is_New,
+		Features, intro, chara, chara_Point, recommend_Quality, recommend_Skill,
+		get_Way,
+		is_Close, change_Tip, superModule
+		from pet_dictionary
+		where Type = #{_parameter,jdbcType=VARCHAR}
+	</select>
 </mapper>

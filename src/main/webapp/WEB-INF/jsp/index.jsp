@@ -47,55 +47,88 @@
 			<div class="col-sm-8 blog-main">
 				<div style="float: right;">
 					<input type="text" class="form-control" id="queryText"
-						style="width: 120px; display: inline-block; margin: 10px 10px 10px 10px">
+						style="width: 120px; display: inline-block">
 					<button class="btn btn-success" id="query">搜索</button>
 				</div>
+				<div style="float: right;">
+					<select id="select" class="form-control"
+						style="display: inline-block;">
+						<option>-按属性搜索-</option>
+						<option>普通</option>
+						<option>草</option>
+						<option>水</option>
+						<option>火</option>
+						<option>风</option>
+						<option>虫</option>
+						<option>飞行</option>
+						<option>电</option>
+						<option>地面</option>
+						<option>冰</option>
+						<option>超能</option>
+						<option>光</option>
+						<option>暗影</option>
+						<option>战斗</option>
+						<option>龙</option>
+						<option>沙漠</option>
+						<option>神秘</option>
+						<option>特质</option>
+						<option>基佬王</option>
+						<option>上古</option>
+						<option>圣灵</option>
+					</select>
+				</div>
+
 				<c:if test="${PetSize != 0}">
-									<table class="table table-striped">
-										<th>
-										<td>名字</td>
-										<td>属性</td>
-										</th>
-										<c:forEach items="${PetInfo}" var="pet">
-											<tr>
-												<td>${pet.id }</td>
-												<td><a
-													href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">${pet.defName }</a></td>
-												<td>${pet.type }</td>
-											</tr>
-										</c:forEach>
-									</table>
-									<nav>
-										<ul class="pager">
-											<c:if test="${PageNum!=1}">
-												<li><a
-													href="${pageContext.request.contextPath}/monsterinfo/
+					<table class="table table-striped">
+						<th>
+						<td>名字</td>
+						<td>属性</td>
+						</th>
+						<c:forEach items="${PetInfo}" var="pet">
+							<tr>
+								<td>${pet.id }</td>
+								<td><a
+									href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">${pet.defName }</a></td>
+								<td>${pet.type }</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<nav>
+						<ul class="pager">
+							<c:if test="${PageNum!=1}">
+								<li><a
+									href="${pageContext.request.contextPath}/monsterinfo/
 													<c:if test="${defName != null }">
 														queryName/${ defName}/
 													</c:if>
-													
+													<c:if test="${Type != null }">
+														queryType/${ Type}/
+													</c:if>
 													${ PageNum-1 }">Previous</a></li>
-											</c:if>
-											<c:if test="${PageNum==1}">
-												<li class="disabled"><a>Previous</a></li>
-											</c:if>
-					
-					
-											<!-- 下一页 -->
-											<c:if test="${PageNum != EndPageNum }">
-												<li><a
-													href="${pageContext.request.contextPath}/monsterinfo/
+							</c:if>
+							<c:if test="${PageNum==1}">
+								<li class="disabled"><a>Previous</a></li>
+							</c:if>
+
+
+							<!-- 下一页 -->
+							<c:if test="${PageNum != EndPageNum }">
+								<li><a
+									href="${pageContext.request.contextPath}/monsterinfo/
 													<c:if test="${defName != null }">
 														queryName/${ defName}/
+													</c:if>
+													<c:if test="${Type != null }">
+														queryType/${ Type}/
 													</c:if>
 													
 													${ PageNum+1 }">Next</a></li>
-											</c:if>
-											<c:if test="${PageNum == EndPageNum }">
-												<li class="disabled"><a>Next</a></li>
-											</c:if>
-										</ul>
-									</nav>
+							</c:if>
+							<c:if test="${PageNum == EndPageNum }">
+								<li class="disabled"><a>Next</a></li>
+							</c:if>
+						</ul>
+					</nav>
 				</c:if>
 				<c:if test="${PetSize == 0}">
 					找不到精灵了~
@@ -107,6 +140,7 @@
 					<ol class="list-unstyled">
 						<li><a href="https://github.com/JaxXu">GitHub</a></li>
 						<li><a href="http://weibo.com/topjsz">WeiBo</a></li>
+						<li><b><a href="https://github.com/JaxXu/Seer2Tools/issues">提建议</a></b></li>
 					</ol>
 				</div>
 			</div>
@@ -118,14 +152,28 @@
 
 	<footer class="blog-footer">
 		<hr>
-		<p align="center">Power By Jax</p>
+		<p align="center">Powered by Jax</p>
 	</footer>
 	<script type="text/javascript">
+		if ('${Type}' == '') {
+			$("#select").val('-按属性搜索-');
+		} else {
+			$("#select").val('${Type}');
+		}
 		$("#query")
 				.click(
 						function() {
 							var str = $("#queryText").val();
-							location.href = "${pageContext.request.contextPath}/monsterinfo/queryName/"
+							if ($.trim(str) != "") {
+								location.href = "${pageContext.request.contextPath}/monsterinfo/queryName/"
+										+ $.trim(str);
+							}
+						});
+		$("#select")
+				.change(
+						function() {
+							var str = $("#select").val();
+							location.href = "${pageContext.request.contextPath}/monsterinfo/queryType/"
 									+ str;
 						});
 	</script>

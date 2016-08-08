@@ -33,5 +33,11 @@ public class PetDictionnaryService implements IPetDictionnaryService {
 	public PetDictionary queryOneById(Short id) {
 		return pm.selectByPrimaryKey(id);
 	}
+	@Override
+	public List<PetDictionary> queryPetByPageAndType(int pageNum, int pageSize, String Type) {
+		PageHelper ph = new PageHelper();
+		ph.startPage(pageNum, pageSize);
+		return pm.selectByLikeType(Type);
+	}
 
 }

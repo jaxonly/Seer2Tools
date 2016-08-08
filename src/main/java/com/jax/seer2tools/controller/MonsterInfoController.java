@@ -79,6 +79,34 @@ public class MonsterInfoController {
 	}
 	
 	
+	@RequestMapping(value = "/queryType/{Type}")
+	private ModelAndView queryByType(
+			@PathVariable("Type") String Type) {
+		return this.queryByType(1,Type);
+	}
+	@RequestMapping(value = "/queryType/{Type}/{pageNum}")
+	private ModelAndView queryByType(
+			@PathVariable("pageNum") Integer pageNum,
+			@PathVariable("Type") String Type) {
+		if (pageNum==null) {
+			pageNum=1;
+		}
+		if (Type==null) {
+			Type="";
+		}
+		List<PetDictionary> pd = ipd.queryPetByPageAndType(pageNum, 20, Type);
+		PageInfo<?> info = new PageInfo<>(pd);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("PetInfo", pd);
+		mv.addObject("PageNum", pageNum);
+		mv.addObject("PetSize", info.getSize());
+		mv.addObject("EndPageNum", info.getPages());
+		mv.addObject("Type", Type);
+		mv.setViewName("index");
+		return mv;
+	}
+	
+	
 	
 	@RequestMapping(value = "/info/{PetId}")
 	private ModelAndView info(
