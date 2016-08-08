@@ -19,6 +19,8 @@
 	src="${pageContext.request.contextPath}/js/jquery-3.1.0.slim.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<!-- 分页 -->
+<script src="${pageContext.request.contextPath}/js/laypage.js"></script>
 <meta charset="UTF-8">
 <title>Index</title>
 </head>
@@ -82,42 +84,8 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<nav>
-						<ul class="pager">
-							<c:if test="${PageNum!=1}">
-								<li><a
-									href="${pageContext.request.contextPath}/monsterinfo/
-													<c:if test="${defName != null }">
-														queryName/${ defName}/
-													</c:if>
-													<c:if test="${Type != null }">
-														queryType/${ Type}/
-													</c:if>
-													${ PageNum-1 }">Previous</a></li>
-							</c:if>
-							<c:if test="${PageNum==1}">
-								<li class="disabled"><a>Previous</a></li>
-							</c:if>
-
-
-							<!-- 下一页 -->
-							<c:if test="${PageNum != EndPageNum }">
-								<li><a
-									href="${pageContext.request.contextPath}/monsterinfo/
-													<c:if test="${defName != null }">
-														queryName/${ defName}/
-													</c:if>
-													<c:if test="${Type != null }">
-														queryType/${ Type}/
-													</c:if>
-													
-													${ PageNum+1 }">Next</a></li>
-							</c:if>
-							<c:if test="${PageNum == EndPageNum }">
-								<li class="disabled"><a>Next</a></li>
-							</c:if>
-						</ul>
-					</nav>
+					<!-- 分页容器 -->
+					<div id="page" align="center"></div>
 				</c:if>
 				<c:if test="${PetSize == 0}">
 					找不到精灵了~
@@ -129,6 +97,19 @@
 	</div>
 	<!-- /.container -->
 	<jsp:include page="footer.jsp"></jsp:include>
+
+	<b id="url"> <c:if test="${defName != null && Type !=null}">
+							queryTypeAndName/${Type}/${defName}
+						</c:if> <c:if test="${defName == null || Type ==null}">
+			<c:if test="${defName != null }">
+								queryName/${ defName}/
+							</c:if>
+			<c:if test="${Type != null }">
+								queryType/${ Type}/
+							</c:if>
+		</c:if>
+	</b>
+
 	<script type="text/javascript">
 		if ('${Type}' == '') {
 			$("#select").val('-按属性搜索-');
@@ -153,9 +134,34 @@
 				.change(
 						function() {
 							var str = $("#select").val();
-							location.href = "${pageContext.request.contextPath}/monsterinfo/queryType/"
-									+ str;
+							var queryText = $("#queryText").val();
+							if($.trim(queryText)!=""){
+								location.href = "${pageContext.request.contextPath}/monsterinfo/queryTypeAndName/"+str+"/"
+								+ queryText;
+							}else{
+								location.href = "${pageContext.request.contextPath}/monsterinfo/queryType/"
+										+ str;
+							}
 						});
+		
+		laypage({		
+		    cont: 'page',
+		    pages: ${EndPageNum}, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
+		    curr: ${PageNum},
+		    skin: 'molv',
+		    first: 1, //将首页显示为数字1,。若不显示，设置false即可
+		    last: ${EndPageNum}, //将尾页显示为总页数。若不显示，设置false即可
+		    prev: '<', //若不显示，设置false即可
+		    next: '>', //若不显示，设置false即可
+		    groups: 5, //连续显示分页数
+		    jump: function(e, first){ //触发分页后的回调
+		        if(!first){ //一定要加此判断，否则初始时会无限刷新
+		            var str = $.trim($("#url").text());
+		        	location.href = "${pageContext.request.contextPath}/monsterinfo/"+$.trim(str)+e.curr
+		        }
+		    }
+		});
+		$("#url").hide();
 	</script>
 </body>
 </html>
