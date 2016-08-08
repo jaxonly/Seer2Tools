@@ -25,26 +25,13 @@ public class PetDictionnaryService implements IPetDictionnaryService {
 		return pm.selectAll();
 	}
 	@Override
-	public List<PetDictionary> queryPetByPageAndName(int pageNum, int pageSize,String defName) {
-		PageHelper ph = new PageHelper();
-		ph.startPage(pageNum, pageSize);
-		return pm.selectByLikeName(defName);
-	}
-	@Override
 	public PetDictionary queryOneById(Short id) {
 		return pm.selectByPrimaryKey(id);
 	}
 	@Override
-	public List<PetDictionary> queryPetByPageAndType(int pageNum, int pageSize, String Type) {
+	public List<PetDictionary> queryPetByEntity(int pageNum, int pageSize, PetDictionary record) {
 		PageHelper ph = new PageHelper();
 		ph.startPage(pageNum, pageSize);
-		return pm.selectByLikeType(Type);
+		return pm.selectByEntity(record);
 	}
-	@Override
-	public List<PetDictionary> queryPetByPageAndTypeAndName(int pageNum, int pageSize, Map<String, String> map) {
-		PageHelper ph = new PageHelper();
-		ph.startPage(pageNum, pageSize);
-		return pm.selectByLikeTypeAndName(map);
-	}
-
 }

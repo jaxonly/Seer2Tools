@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
@@ -30,16 +32,11 @@ public class MonsterInfoController {
 
 	@Resource
 	ISkillMonsterService ism;
-	
+
 	@RequestMapping(value = "")
-	private ModelAndView index() {
-		return this.index(1);
-	}
-	@RequestMapping(value = "/{pageNum}")
-	private ModelAndView index(
-			@PathVariable("pageNum") Integer pageNum) {
-		if (pageNum==null) {
-			pageNum=1;
+	private ModelAndView index(@RequestParam(value="pageNum",required=false) Integer pageNum) {
+		if (pageNum == null) {
+			pageNum = 1;
 		}
 		List<PetDictionary> pd = ipd.queryPetByPage(pageNum, 20);
 		PageInfo<?> info = new PageInfo<>(pd);
@@ -51,109 +48,36 @@ public class MonsterInfoController {
 		mv.setViewName("index");
 		return mv;
 	}
-	
-	
-	@RequestMapping(value = "/queryName/{defName}")
-	private ModelAndView queryByDefName(
-			@PathVariable("defName") String defName) {
-		return this.queryByDefName(1,defName);
-	}
-	@RequestMapping(value = "/queryName/{defName}/{pageNum}")
-	private ModelAndView queryByDefName(
-			@PathVariable("pageNum") Integer pageNum,
-			@PathVariable("defName") String defName) {
-		if (pageNum==null) {
-			pageNum=1;
+
+	@RequestMapping(value = "/query")
+	private ModelAndView queryByEntity(@ModelAttribute PetDictionary pdEntity,
+			@RequestParam(value = "pageNum", required = false) Integer pageNum) {
+		if (pageNum == null) {
+			pageNum = 1;
 		}
-		if (defName==null) {
-			defName="";
+		if ("全部".equals(pdEntity.getType())) {
+			pdEntity.setType(null);
 		}
-		List<PetDictionary> pd = ipd.queryPetByPageAndName(pageNum, 20, defName);
-		PageInfo<?> info = new PageInfo<>(pd);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("PetInfo", pd);
-		mv.addObject("PageNum", pageNum);
-		mv.addObject("PetSize", info.getSize());
-		mv.addObject("EndPageNum", info.getPages());
-		mv.addObject("defName", defName);
-		mv.setViewName("index");
-		return mv;
-	}
-	
-	
-	@RequestMapping(value = "/queryType/{Type}")
-	private ModelAndView queryByType(
-			@PathVariable("Type") String Type) {
-		return this.queryByType(1,Type);
-	}
-	@RequestMapping(value = "/queryType/{Type}/{pageNum}")
-	private ModelAndView queryByType(
-			@PathVariable("pageNum") Integer pageNum,
-			@PathVariable("Type") String Type) {
-		if (pageNum==null) {
-			pageNum=1;
-		}
-		if (Type==null) {
-			Type="";
-		}
-		List<PetDictionary> pd = ipd.queryPetByPageAndType(pageNum, 20, Type);
-		PageInfo<?> info = new PageInfo<>(pd);
-		ModelAndView mv = new ModelAndView();
-		mv.addObject("PetInfo", pd);
-		mv.addObject("PageNum", pageNum);
-		mv.addObject("PetSize", info.getSize());
-		mv.addObject("EndPageNum", info.getPages());
-		mv.addObject("Type", Type);
-		mv.setViewName("index");
-		return mv;
-	}
-	
-	
-	
-	@RequestMapping(value = "/queryTypeAndName/{Type}/{defName}")
-	private ModelAndView queryByTypeAndName(
-			@PathVariable("Type") String Type,
-			@PathVariable("defName") String defName) {
-		return this.queryByTypeAndName(Type,defName,1);
-	}
-	@RequestMapping(value = "/queryTypeAndName/{Type}/{defName}/{pageNum}")
-	private ModelAndView queryByTypeAndName(
-			@PathVariable("Type") String Type,
-			@PathVariable("defName") String defName,
-			@PathVariable("pageNum") Integer pageNum) {
-		if (pageNum==null) {
-			pageNum=1;
-		}
-		if (Type==null) {
-			Type="";
-		}
-		if (defName==null) {
-			defName="";
+		if ("".equals(pdEntity.getDefName())) {
+			pdEntity.setDefName(null);
 		}
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("Type", Type);
-		map.put("defName", defName);
-		List<PetDictionary> pd = ipd.queryPetByPageAndTypeAndName(pageNum, 20, map);
+		List<PetDictionary> pd = ipd.queryPetByEntity(pageNum, 20, pdEntity);
 		PageInfo<?> info = new PageInfo<>(pd);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PetInfo", pd);
 		mv.addObject("PageNum", pageNum);
-		mv.addObject("PetSize", info.getSize());
 		mv.addObject("EndPageNum", info.getPages());
-		mv.addObject("Type", Type);
-		mv.addObject("defName", defName);
+		mv.addObject("defName", pdEntity.getDefName());
+		mv.addObject("type", pdEntity.getType()==null?"全部":pdEntity.getType());
 		mv.setViewName("index");
 		return mv;
 	}
-	
-	
-	
-	
+
 	@RequestMapping(value = "/info/{PetId}")
-	private ModelAndView info(
-			@PathVariable("PetId") Short PetId) {
+	private ModelAndView info(@PathVariable("PetId") Short PetId) {
 		PetDictionary pd = ipd.queryOneById(PetId);
-		MonsterInfo mi =ims.queryMonsterInfoById(PetId);
+		MonsterInfo mi = ims.queryMonsterInfoById(PetId);
 		List<SkillMonster> sks = ism.querySkillMonsterAll(PetId);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("pd", pd);

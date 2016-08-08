@@ -15,9 +15,7 @@ public interface PetDictionaryMapper {
 
     List<PetDictionary> selectAll();
     
-    List<PetDictionary> selectByLikeName(String name);
-
-    List<PetDictionary> selectByLikeType(String name);
-    List<PetDictionary> selectByLikeTypeAndName(Map<String,String> map);
+    List<PetDictionary> selectByEntity(PetDictionary record);
+    
     int updateByPrimaryKey(PetDictionary record);
 }
