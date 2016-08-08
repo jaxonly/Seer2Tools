@@ -33,7 +33,8 @@
 		</association>
 	</resultMap>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
-		delete from pet_dictionary
+		delete from
+		pet_dictionary
 		where ID = #{id,jdbcType=SMALLINT}
 	</delete>
 	<insert id="insert" parameterType="com.jax.seer2tools.entity.PetDictionary">
@@ -41,86 +42,100 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into pet_dictionary (ID, Numbers_ID, emblem_ID,
-		Def_Name, Type, Height,
+		Def_Name, Type,
+		Height,
 		Weight, Foundin, is_New,
 		Features, intro, chara,
-		chara_Point, recommend_Quality, recommend_Skill,
+		chara_Point,
+		recommend_Quality, recommend_Skill,
 		get_Way, is_Close, change_Tip,
 		superModule)
-		values (#{id,jdbcType=SMALLINT}, #{numbersId,jdbcType=SMALLINT},
+		values (#{id,jdbcType=SMALLINT},
+		#{numbersId,jdbcType=SMALLINT},
 		#{emblemId,jdbcType=INTEGER},
-		#{defName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{height,jdbcType=VARCHAR},
-		#{weight,jdbcType=VARCHAR}, #{foundin,jdbcType=VARCHAR},
+		#{defName,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR},
+		#{height,jdbcType=VARCHAR},
+		#{weight,jdbcType=VARCHAR},
+		#{foundin,jdbcType=VARCHAR},
 		#{isNew,jdbcType=TINYINT},
-		#{features,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, #{chara,jdbcType=VARCHAR},
-		#{charaPoint,jdbcType=VARCHAR}, #{recommendQuality,jdbcType=VARCHAR},
+		#{features,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR},
+		#{chara,jdbcType=VARCHAR},
+		#{charaPoint,jdbcType=VARCHAR},
+		#{recommendQuality,jdbcType=VARCHAR},
 		#{recommendSkill,jdbcType=VARCHAR},
-		#{getWay,jdbcType=VARCHAR}, #{isClose,jdbcType=TINYINT}, #{changeTip,jdbcType=VARCHAR},
+		#{getWay,jdbcType=VARCHAR},
+		#{isClose,jdbcType=TINYINT}, #{changeTip,jdbcType=VARCHAR},
 		#{supermodule,jdbcType=VARCHAR})
 	</insert>
 	<update id="updateByPrimaryKey" parameterType="com.jax.seer2tools.entity.PetDictionary">
-		update pet_dictionary
+		update
+		pet_dictionary
 		set Numbers_ID = #{numbersId,jdbcType=SMALLINT},
 		emblem_ID = #{emblemId,jdbcType=INTEGER},
-		Def_Name = #{defName,jdbcType=VARCHAR},
+		Def_Name =
+		#{defName,jdbcType=VARCHAR},
 		Type = #{type,jdbcType=VARCHAR},
-		Height = #{height,jdbcType=VARCHAR},
+		Height =
+		#{height,jdbcType=VARCHAR},
 		Weight = #{weight,jdbcType=VARCHAR},
 		Foundin = #{foundin,jdbcType=VARCHAR},
-		is_New = #{isNew,jdbcType=TINYINT},
+		is_New =
+		#{isNew,jdbcType=TINYINT},
 		Features = #{features,jdbcType=VARCHAR},
 		intro = #{intro,jdbcType=VARCHAR},
 		chara = #{chara,jdbcType=VARCHAR},
 		chara_Point = #{charaPoint,jdbcType=VARCHAR},
-		recommend_Quality = #{recommendQuality,jdbcType=VARCHAR},
-		recommend_Skill = #{recommendSkill,jdbcType=VARCHAR},
-		get_Way = #{getWay,jdbcType=VARCHAR},
+		recommend_Quality =
+		#{recommendQuality,jdbcType=VARCHAR},
+		recommend_Skill =
+		#{recommendSkill,jdbcType=VARCHAR},
+		get_Way =
+		#{getWay,jdbcType=VARCHAR},
 		is_Close = #{isClose,jdbcType=TINYINT},
 		change_Tip = #{changeTip,jdbcType=VARCHAR},
-		superModule = #{supermodule,jdbcType=VARCHAR}
+		superModule =
+		#{supermodule,jdbcType=VARCHAR}
 		where ID = #{id,jdbcType=SMALLINT}
 	</update>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Short"
 		resultMap="BaseResultMap">
-		select a.ID, a.Numbers_ID, b.name, b.tip,a.Def_Name, a.Type, a.Height, a.Weight, a.Foundin,
-		a.is_New, a.Features, a.intro, a.chara, a.chara_Point,a.recommend_Quality, a.recommend_Skill,
-		a.get_Way, a.is_Close, a.change_Tip
+		select a.ID, a.Numbers_ID, b.name, b.tip,a.Def_Name, a.Type,
+		a.Height, a.Weight, a.Foundin,
+		a.is_New, a.Features, a.intro, a.chara,
+		a.chara_Point,a.recommend_Quality, a.recommend_Skill,
+		a.get_Way,
+		a.is_Close, a.change_Tip
 		from pet_dictionary as a,emblem_info as b
 		where a.ID = #{id,jdbcType=SMALLINT} and a.emblem_ID = b.id
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap">
-		select ID, Numbers_ID, emblem_ID, Def_Name, Type, Height, Weight, Foundin,
+		select ID, Numbers_ID,
+		emblem_ID, Def_Name, Type, Height, Weight, Foundin,
 		is_New,
-		Features, intro, chara, chara_Point, recommend_Quality, recommend_Skill,
+		Features,
+		intro, chara, chara_Point, recommend_Quality, recommend_Skill,
 		get_Way,
 		is_Close, change_Tip, superModule
 		from pet_dictionary
 	</select>
-	<select id="selectByLikeName" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select ID, Numbers_ID, emblem_ID, Def_Name, Type, Height, Weight, Foundin,
+	<select id="selectByEntity" parameterType="com.jax.seer2tools.entity.PetDictionary"
+		resultMap="BaseResultMap">
+		select ID, Numbers_ID, emblem_ID, Def_Name, Type, Height, Weight,
+		Foundin,
 		is_New,
-		Features, intro, chara, chara_Point, recommend_Quality, recommend_Skill,
+		Features, intro, chara, chara_Point, recommend_Quality,
+		recommend_Skill,
 		get_Way,
 		is_Close, change_Tip, superModule
-		from pet_dictionary
-		where Def_Name like '%${_parameter}%'
-	</select>
-	<select id="selectByLikeType" parameterType="java.lang.String" resultMap="BaseResultMap">
-		select ID, Numbers_ID, emblem_ID, Def_Name, Type, Height, Weight, Foundin,
-		is_New,
-		Features, intro, chara, chara_Point, recommend_Quality, recommend_Skill,
-		get_Way,
-		is_Close, change_Tip, superModule
-		from pet_dictionary
-		where Type = #{_parameter,jdbcType=VARCHAR}
-	</select>
-	<select id="selectByLikeTypeAndName" parameterType="java.util.Map" resultMap="BaseResultMap">
-		select ID, Numbers_ID, emblem_ID, Def_Name, Type, Height, Weight, Foundin,
-		is_New,
-		Features, intro, chara, chara_Point, recommend_Quality, recommend_Skill,
-		get_Way,
-		is_Close, change_Tip, superModule
-		from pet_dictionary
-		where Type = #{Type,jdbcType=VARCHAR} and Def_Name like '%${defName}%'
+		from
+		pet_dictionary
+		<where>
+			<if test="type!=null">
+				and Type = #{type}
+			</if>
+			<if test="defName!=null">
+				and Def_Name like '%${defName}%'
+			</if>
+		</where>
 	</select>
 </mapper>

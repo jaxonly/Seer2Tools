@@ -36,38 +36,41 @@
 		<div class="row">
 			<div class="col-sm-8 blog-main">
 				<div style="float: right;">
-					<input type="text" class="form-control" id="queryText"
-						style="width: 120px; display: inline-block" value="${defName }">
-					<button class="btn btn-success" id="query">搜索</button>
+					<form class="form-inline" action="${pageContext.request.contextPath}/monsterinfo/query" method="get">
+						<div class="form-group">
+							<label for="type">属性</label> <select id="type"
+								class="form-control" name="type" style="display: inline-block;">
+								<option selected="selected">全部</option>
+								<option>普通</option>
+								<option>草</option>
+								<option>水</option>
+								<option>火</option>
+								<option>风</option>
+								<option>虫</option>
+								<option>飞行</option>
+								<option>电</option>
+								<option>地面</option>
+								<option>冰</option>
+								<option>超能</option>
+								<option>光</option>
+								<option>暗影</option>
+								<option>战斗</option>
+								<option>龙</option>
+								<option>沙漠</option>
+								<option>神秘</option>
+								<option>特质</option>
+								<option>基佬王</option>
+								<option>上古</option>
+								<option>圣灵</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="defName">名字</label> <input type="text"
+								class="form-control" id="defName" name="defName">
+						</div>
+						<button type="submit" class="btn btn-default">搜索</button>
+					</form>
 				</div>
-				<div style="float: right;">
-					<select id="select" class="form-control"
-						style="display: inline-block;">
-						<option>-按属性搜索-</option>
-						<option>普通</option>
-						<option>草</option>
-						<option>水</option>
-						<option>火</option>
-						<option>风</option>
-						<option>虫</option>
-						<option>飞行</option>
-						<option>电</option>
-						<option>地面</option>
-						<option>冰</option>
-						<option>超能</option>
-						<option>光</option>
-						<option>暗影</option>
-						<option>战斗</option>
-						<option>龙</option>
-						<option>沙漠</option>
-						<option>神秘</option>
-						<option>特质</option>
-						<option>基佬王</option>
-						<option>上古</option>
-						<option>圣灵</option>
-					</select>
-				</div>
-
 				<c:if test="${PetSize != 0}">
 					<table class="table table-striped">
 						<tr>
@@ -98,53 +101,29 @@
 	<!-- /.container -->
 	<jsp:include page="footer.jsp"></jsp:include>
 
-	<b id="url"> <c:if test="${defName != null && Type !=null}">
-							queryTypeAndName/${Type}/${defName}
-						</c:if> <c:if test="${defName == null || Type ==null}">
+	<b id="url">
+		 <c:if test="${defName != null && type !=null}">
+							/query?defName=${defName}&type=${type }&
+		</c:if> 
+		<c:if test="${defName == null || type ==null}">
 			<c:if test="${defName != null }">
-								queryName/${ defName}/
-							</c:if>
-			<c:if test="${Type != null }">
-								queryType/${ Type}/
-							</c:if>
+				/query?defName=${ defName}&
+			</c:if>
+			<c:if test="${type != null }">
+				/query?type=${type}&
+			</c:if>
+		</c:if>
+		 <c:if test="${defName == null && type ==null}">
+			?
 		</c:if>
 	</b>
 
 	<script type="text/javascript">
-		if ('${Type}' == '') {
-			$("#select").val('-按属性搜索-');
-		} else {
-			$("#select").val('${Type}');
+		if ('${type}' != '') {
+			$("#type").val('${type}');
 		}
-		$("#query")
-				.click(
-						function() {
-							var str = $("#queryText").val();
-							if ($.trim(str) != "") {
-								if ($("#select").val() != "-按属性搜索-") {
-									location.href = "${pageContext.request.contextPath}/monsterinfo/queryTypeAndName/"+$("#select").val()+"/"
-											+ $.trim(str);
-								}else{
-									location.href = "${pageContext.request.contextPath}/monsterinfo/queryName/"
-											+ $.trim(str);
-								}
-							}
-						});
-		$("#select")
-				.change(
-						function() {
-							var str = $("#select").val();
-							var queryText = $("#queryText").val();
-							if($.trim(queryText)!=""){
-								location.href = "${pageContext.request.contextPath}/monsterinfo/queryTypeAndName/"+str+"/"
-								+ queryText;
-							}else{
-								location.href = "${pageContext.request.contextPath}/monsterinfo/queryType/"
-										+ str;
-							}
-						});
-		
-		laypage({		
+		$("#defName").val('${defName}');
+		laypage({
 		    cont: 'page',
 		    pages: ${EndPageNum}, //可以叫服务端把总页数放在某一个隐藏域，再获取。假设我们获取到的是18
 		    curr: ${PageNum},
@@ -157,7 +136,7 @@
 		    jump: function(e, first){ //触发分页后的回调
 		        if(!first){ //一定要加此判断，否则初始时会无限刷新
 		            var str = $.trim($("#url").text());
-		        	location.href = "${pageContext.request.contextPath}/monsterinfo/"+$.trim(str)+e.curr
+		        	location.href = "${pageContext.request.contextPath}/monsterinfo"+$.trim(str)+"pageNum="+e.curr
 		        }
 		    }
 		});

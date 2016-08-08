@@ -7,8 +7,6 @@ import com.jax.seer2tools.entity.PetDictionary;
 
 public interface IPetDictionnaryService {
 	List<PetDictionary> queryPetByPage(int pageNum , int pageSize);
-	List<PetDictionary> queryPetByPageAndName(int pageNum , int pageSize ,String defName);
-	List<PetDictionary> queryPetByPageAndType(int pageNum , int pageSize ,String Type);
-	List<PetDictionary> queryPetByPageAndTypeAndName(int pageNum , int pageSize ,Map<String, String> map);
+	List<PetDictionary> queryPetByEntity(int pageNum , int pageSize ,PetDictionary record);
 	PetDictionary queryOneById(Short id);
 }
