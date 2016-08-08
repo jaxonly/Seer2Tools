@@ -26,21 +26,8 @@
 <title>Info</title>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Seer2Tools</a>
-			</div>
-			<!--         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">登录</a></li>
-          </ul>
-        </div> -->
-		</div>
-	</nav>
-
+	<jsp:include page="header.jsp"></jsp:include>
 	<div style="height: 100px"></div>
-
 	<div class="container">
 		<div class="blog-header">
 			<div class="page-header">
@@ -196,14 +183,11 @@
 							<c:if test="${mi.useNum!=null }">
 								<tr>
 									<td>同时上场精灵数</td>
-									<td>
-										<c:if test="${mi.useNum == 0}">
+									<td><c:if test="${mi.useNum == 0}">
 											无限制
-										</c:if>
-										<c:if test="${mi.useNum != 0}">
+										</c:if> <c:if test="${mi.useNum != 0}">
 											${mi.useNum }
-										</c:if>
-									</td>
+										</c:if></td>
 								</tr>
 							</c:if>
 						</table>
@@ -216,16 +200,16 @@
 					<div class="panel-body" style="padding: 0px 0px 0px 0px">
 						<table class="table table-striped">
 							<tr>
-								<td></td>
-								<td>体力</td>
-								<td>物攻</td>
-								<td>物防</td>
-								<td>特攻</td>
-								<td>特防</td>
-								<td>速度</td>
+								<th></th>
+								<th>体力</th>
+								<th>物攻</th>
+								<th>物防</th>
+								<th>特攻</th>
+								<th>特防</th>
+								<th>速度</th>
 							</tr>
 							<tr>
-								<td>基础值</td>
+								<th>基础值</th>
 								<td>${mi.hp}</td>
 								<td>${mi.atk}</td>
 								<td>${mi.def}</td>
@@ -234,7 +218,7 @@
 								<td>${mi.spd}</td>
 							</tr>
 							<tr>
-								<td>种族值</td>
+								<th>种族值</th>
 								<td>${mi.hp+50}</td>
 								<td>${mi.atk+50}</td>
 								<td>${mi.def+50}</td>
@@ -243,7 +227,7 @@
 								<td>${mi.spd+50}</td>
 							</tr>
 							<tr>
-								<td>极限值</td>
+								<th>极限值</th>
 								<td><fmt:formatNumber
 										value="${( (mi.hp*2 + 120) * 100/100 + 100 + 10 + 255/4) *1.1
 }"
@@ -284,22 +268,21 @@
 					<div class="panel-body" style="padding: 0px 0px 0px 0px">
 						<table class="table table-striped">
 							<tr>
-								<td></td>
-								<td>等级</td>
-								<td>名字</td>
-								<td>类别</td>
-								<td>属性</td>
-								<td>威力</td>
-								<td>命中</td>
-								<td>怒气</td>
-								<td>描述</td>
+								<th>等级</th>
+								<th>名字</th>
+								<th>类别</th>
+								<th>属性</th>
+								<th>威力</th>
+								<th>命中</th>
+								<th>怒气</th>
+								<th>描述</th>
 							</tr>
 							<c:forEach items="${Skills}" var="Skill">
 								<tr>
 									<td><c:if test="${Skill.learningLv > 100}">
-											<td>隐藏技能</td>
+											隐藏技能
 										</c:if> <c:if test="${Skill.learningLv < 101}">
-											<td>${Skill.learningLv}</td>
+											${Skill.learningLv}
 										</c:if></td>
 									<td>${Skill.skill.name}</td>
 									<td name="category">${Skill.skill.category}</td>
@@ -314,28 +297,14 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-				<div class="sidebar-module">
-					<h4>联系我</h4>
-					<ol class="list-unstyled">
-						<li><a href="https://github.com/JaxXu">GitHub</a></li>
-						<li><a href="http://weibo.com/topjsz">WeiBo</a></li>
-						<li><b><a href="https://github.com/JaxXu/Seer2Tools/issues">提建议</a></b></li>
-					</ol>
-				</div>
-			</div>
+			<jsp:include page="callMe.jsp"></jsp:include>
 			<!-- /.blog-sidebar -->
 		</div>
 		<!-- /.row -->
 
 	</div>
 	<!-- /.container -->
-
-	<footer class="blog-footer">
-		<hr>
-		<p align="center">Powered by Jax</p>
-	</footer>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script type="text/javascript">
 		function Type() {
 			items = document.getElementsByName("type");

@@ -23,19 +23,7 @@
 <title>Index</title>
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<a class="navbar-brand" href="#">Seer2Tools</a>
-			</div>
-			<!--         <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="../navbar/">登录</a></li>
-          </ul>
-        </div> -->
-		</div>
-	</nav>
-
+	<jsp:include page="header.jsp"></jsp:include>
 	<div style="height: 100px"></div>
 	<div class="container">
 		<div class="blog-header">
@@ -47,7 +35,7 @@
 			<div class="col-sm-8 blog-main">
 				<div style="float: right;">
 					<input type="text" class="form-control" id="queryText"
-						style="width: 120px; display: inline-block">
+						style="width: 120px; display: inline-block" value="${defName }">
 					<button class="btn btn-success" id="query">搜索</button>
 				</div>
 				<div style="float: right;">
@@ -80,10 +68,11 @@
 
 				<c:if test="${PetSize != 0}">
 					<table class="table table-striped">
-						<th>
-						<td>名字</td>
-						<td>属性</td>
-						</th>
+						<tr>
+							<th>编号</th>
+							<th>名字</th>
+							<th>属性</th>
+						</tr>
 						<c:forEach items="${PetInfo}" var="pet">
 							<tr>
 								<td>${pet.id }</td>
@@ -134,26 +123,12 @@
 					找不到精灵了~
 				</c:if>
 			</div>
-			<div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-				<div class="sidebar-module">
-					<h4>联系我</h4>
-					<ol class="list-unstyled">
-						<li><a href="https://github.com/JaxXu">GitHub</a></li>
-						<li><a href="http://weibo.com/topjsz">WeiBo</a></li>
-						<li><b><a href="https://github.com/JaxXu/Seer2Tools/issues">提建议</a></b></li>
-					</ol>
-				</div>
-			</div>
+			<jsp:include page="callMe.jsp"></jsp:include>
 		</div>
 		<!-- /.row -->
-
 	</div>
 	<!-- /.container -->
-
-	<footer class="blog-footer">
-		<hr>
-		<p align="center">Powered by Jax</p>
-	</footer>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script type="text/javascript">
 		if ('${Type}' == '') {
 			$("#select").val('-按属性搜索-');
@@ -165,8 +140,13 @@
 						function() {
 							var str = $("#queryText").val();
 							if ($.trim(str) != "") {
-								location.href = "${pageContext.request.contextPath}/monsterinfo/queryName/"
-										+ $.trim(str);
+								if ($("#select").val() != "-按属性搜索-") {
+									location.href = "${pageContext.request.contextPath}/monsterinfo/queryTypeAndName/"+$("#select").val()+"/"
+											+ $.trim(str);
+								}else{
+									location.href = "${pageContext.request.contextPath}/monsterinfo/queryName/"
+											+ $.trim(str);
+								}
 							}
 						});
 		$("#select")

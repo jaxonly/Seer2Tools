@@ -1,6 +1,7 @@
 package com.jax.seer2tools.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -38,6 +39,12 @@ public class PetDictionnaryService implements IPetDictionnaryService {
 		PageHelper ph = new PageHelper();
 		ph.startPage(pageNum, pageSize);
 		return pm.selectByLikeType(Type);
+	}
+	@Override
+	public List<PetDictionary> queryPetByPageAndTypeAndName(int pageNum, int pageSize, Map<String, String> map) {
+		PageHelper ph = new PageHelper();
+		ph.startPage(pageNum, pageSize);
+		return pm.selectByLikeTypeAndName(map);
 	}
 
 }

@@ -1,6 +1,8 @@
 package com.jax.seer2tools.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -105,6 +107,45 @@ public class MonsterInfoController {
 		mv.setViewName("index");
 		return mv;
 	}
+	
+	
+	
+	@RequestMapping(value = "/queryTypeAndName/{Type}/{defName}")
+	private ModelAndView queryByTypeAndName(
+			@PathVariable("Type") String Type,
+			@PathVariable("defName") String defName) {
+		return this.queryByTypeAndName(Type,defName,1);
+	}
+	@RequestMapping(value = "/queryTypeAndName/{Type}/{defName}/{pageNum}")
+	private ModelAndView queryByTypeAndName(
+			@PathVariable("Type") String Type,
+			@PathVariable("defName") String defName,
+			@PathVariable("pageNum") Integer pageNum) {
+		if (pageNum==null) {
+			pageNum=1;
+		}
+		if (Type==null) {
+			Type="";
+		}
+		if (defName==null) {
+			defName="";
+		}
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("Type", Type);
+		map.put("defName", defName);
+		List<PetDictionary> pd = ipd.queryPetByPageAndTypeAndName(pageNum, 20, map);
+		PageInfo<?> info = new PageInfo<>(pd);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("PetInfo", pd);
+		mv.addObject("PageNum", pageNum);
+		mv.addObject("PetSize", info.getSize());
+		mv.addObject("EndPageNum", info.getPages());
+		mv.addObject("Type", Type);
+		mv.addObject("defName", defName);
+		mv.setViewName("index");
+		return mv;
+	}
+	
 	
 	
 	
