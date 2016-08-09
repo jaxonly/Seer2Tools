@@ -13,6 +13,7 @@ public interface MonsterMapper {
     Monster selectByPrimaryKey(Short id);
 
     List<Monster> selectAll();
+    List<Monster> selectByEntity(Monster monster);
 
     int updateByPrimaryKey(Monster record);
 }

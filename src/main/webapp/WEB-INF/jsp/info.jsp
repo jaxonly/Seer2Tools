@@ -2,11 +2,8 @@
 <%@page import="com.jax.seer2tools.entity.PetDictionary"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%
-	
-%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,13 +28,10 @@
 	<div class="container">
 		<div class="blog-header">
 			<div class="page-header">
-				<h1>${pd.defName}
-
-
+				<h1>${mi.defName}
 					<c:if test="${mi.freeForbidden==0 }">
 						<span class="label label-success">可放生</span>
 					</c:if>
-
 					<c:if test="${mi.ride!=0 }">
 						<span class="label label-success">骑宠</span>
 					</c:if>
@@ -55,16 +49,16 @@
 					<div class="panel-heading">基本信息</div>
 					<div class="panel-body" style="padding: 0px 0px 0px 0px">
 						<table class="table table-striped">
-							<c:if test="${pd.type!=null }">
+							<c:if test="${mi.type!=null }">
 								<tr>
 									<td>属性</td>
-									<td>${pd.type }</td>
+									<td>${mi.type }</td>
 								</tr>
 							</c:if>
-							<c:if test="${pd.features!=null }">
+							<c:if test="${mi.features!=null }">
 								<tr>
 									<td>特性</td>
-									<td>${pd.features }</td>
+									<td>${mi.features }</td>
 								<tr>
 							</c:if>
 							<c:if test="${pd.emblem.name!=null }">
@@ -73,16 +67,16 @@
 									<td>${pd.emblem.name }<br>${pd.emblem.tip }</td>
 								<tr>
 							</c:if>
-							<c:if test="${pd.height!=null }">
+							<c:if test="${mi.height!=null }">
 								<tr>
 									<td>身高</td>
-									<td>${pd.height }</td>
+									<td>${mi.height }</td>
 								<tr>
 							</c:if>
-							<c:if test="${pd.weight!=null }">
+							<c:if test="${mi.weight!=null }">
 								<tr>
 									<td>体重</td>
-									<td>${pd.weight }</td>
+									<td>${mi.weight }</td>
 								<tr>
 							</c:if>
 							<c:if test="${pd.foundin!=null }">
@@ -315,124 +309,102 @@
 				case '1':
 					te = '普通';
 					break;
-				break;
-			case '2':
-				te = '草';
-				break;
-			break;
-		case '3':
-			te = '水';
-			break;
-		break;
-	case '4':
-		te = '火';
-		break;
-	break;
-case '5':
-	te = '风';
-	break;
-break;
-case '6':
-te = '虫';
-break;
-break;
-case '7':
-te = '飞行';
-break;
-break;
-case '8':
-te = '电';
-break;
-break;
-case '9':
-te = '地面';
-break;
-break;
-case '10':
-te = '冰';
-break;
-break;
-case '11':
-te = '超能';
-break;
-break;
-case '12':
-te = '光';
-break;
-break;
-case '13':
-te = '暗影';
-break;
-break;
-case '14':
-te = '战斗';
-break;
-break;
-case '15':
-te = '龙';
-break;
-break;
-case '16':
-te = '沙漠';
-break;
-break;
-case '17':
-te = '神秘';
-break;
-break;
-case '18':
-te = '特质';
-break;
-break;
-case '19':
-te = '基佬王';
-break;
-break;
-case '20':
-te = '上古';
-break;
-break;
-case '21':
-te = '圣灵';
-break;
-break;
-default:
-te = '未知';
-break;
-break;
-}
-element.innerText = te;
-}
-}
+				case '2':
+					te = '草';
+					break;
+				case '3':
+					te = '水';
+					break;
+				case '4':
+					te = '火';
+					break;
+				case '5':
+					te = '风';
+					break;
+				case '6':
+					te = '虫';
+					break;
+				case '7':
+					te = '飞行';
+					break;
+				case '8':
+					te = '电';
+					break;
+				case '9':
+					te = '地面';
+					break;
+				case '10':
+					te = '冰';
+					break;
+				case '11':
+					te = '超能';
+					break;
+				case '12':
+					te = '光';
+					break;
+				case '13':
+					te = '暗影';
+					break;
+				case '14':
+					te = '战斗';
+					break;
+				case '15':
+					te = '龙';
+					break;
+				case '16':
+					te = '沙漠';
+					break;
+				case '17':
+					te = '神秘';
+					break;
+				case '18':
+					te = '特质';
+					break;
+				case '19':
+					te = '基佬王';
+					break;
+				case '20':
+					te = '上古';
+					break;
+				case '21':
+					te = '圣灵';
+					break;
+				default:
+					te = '未知';
+					break;
+				}
+				element.innerText = te;
+			}
+		}
 
-function Category() {
-items = document.getElementsByName("category");
-for (var int = 0; int < items.length; int++) {
-var element = items[int];
-var te = element.innerText;
-switch (te) {
-case '1':
-te = '物理';
-break;
-case '2':
-te = '特殊';
-break;
-case '4':
-te = '属性';
-break;
-case '80':
-te = '必杀';
-break;
-default:
-te = '隐藏必杀';
-break;
-}
-element.innerText = te;
-}
-}
+		function Category() {
+			items = document.getElementsByName("category");
+			for (var int = 0; int < items.length; int++) {
+				var element = items[int];
+				var te = element.innerText;
+				switch (te) {
+				case '1':
+					te = '物理';
+					break;
+				case '2':
+					te = '特殊';
+					break;
+				case '4':
+					te = '属性';
+					break;
+				case '80':
+					te = '必杀';
+					break;
+				default:
+					te = '隐藏必杀';
+					break;
+				}
+				element.innerText = te;
+			}
+		}
 
-Type();
-Category();
+		Type();
+		Category();
 	</script>
 </body>
 </html>

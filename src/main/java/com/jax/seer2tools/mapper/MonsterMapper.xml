@@ -1,33 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jax.seer2tools.dao.MonsterMapper">
-  <resultMap id="BaseResultMap" type="com.jax.seer2tools.entity.Monster">
-    <id column="id" jdbcType="SMALLINT" property="id" />
-    <result column="def_name" jdbcType="VARCHAR" property="defName" />
-  </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
-    delete from monster
-    where id = #{id,jdbcType=SMALLINT}
-  </delete>
-  <insert id="insert" parameterType="com.jax.seer2tools.entity.Monster">
-    <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into monster (id, def_name)
-    values (#{id,jdbcType=SMALLINT}, #{defName,jdbcType=VARCHAR})
-  </insert>
-  <update id="updateByPrimaryKey" parameterType="com.jax.seer2tools.entity.Monster">
-    update monster
-    set def_name = #{defName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=SMALLINT}
-  </update>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
-    select id, def_name
-    from monster
-    where id = #{id,jdbcType=SMALLINT}
-  </select>
-  <select id="selectAll" resultMap="BaseResultMap">
-    select id, def_name
-    from monster
-  </select>
+	<resultMap id="BaseResultMap" type="com.jax.seer2tools.entity.Monster">
+		<id column="id" jdbcType="SMALLINT" property="id" />
+		<result column="def_name" jdbcType="VARCHAR" property="defName" />
+		<result column="star" jdbcType="TINYINT" property="star" />
+		<result column="type" jdbcType="TINYINT" property="type" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+		delete from monster
+		where id = #{id,jdbcType=SMALLINT}
+	</delete>
+	<insert id="insert" parameterType="com.jax.seer2tools.entity.Monster">
+		<selectKey keyProperty="id" order="BEFORE" resultType="java.lang.Short">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into monster (id, def_name)
+		values (#{id,jdbcType=SMALLINT}, #{defName,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.jax.seer2tools.entity.Monster">
+		update monster
+		set def_name = #{defName,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=SMALLINT}
+	</update>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Short"
+		resultMap="BaseResultMap">
+		select id, def_name, star
+		from monster
+		where id = #{id,jdbcType=SMALLINT}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select id, def_name, type, star
+		from monster
+		where id != 0
+	</select>
+	<select id="selectByEntity" parameterType="com.jax.seer2tools.entity.Monster"
+		resultMap="BaseResultMap">
+		select
+			id, def_name, type, star
+		from
+			monster
+		<where>
+			id != 0
+			<if test="type!=null and type!=0">
+				and Type = #{type}
+			</if>
+			<if test="defName!=null">
+				and Def_Name like '%${defName}%'
+			</if>
+			<if test="star!=null">
+				and star = #{star}
+			</if>
+		</where>
+	</select>
 </mapper>

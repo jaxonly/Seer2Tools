@@ -14,12 +14,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.jax.seer2tools.entity.Monster;
 import com.jax.seer2tools.entity.MonsterInfo;
 import com.jax.seer2tools.entity.PetDictionary;
 import com.jax.seer2tools.entity.SkillMonster;
 import com.jax.seer2tools.service.IMonsterInfoService;
 import com.jax.seer2tools.service.IPetDictionnaryService;
 import com.jax.seer2tools.service.ISkillMonsterService;
+import com.jax.seer2tools.service.impl.MonsterService;
 
 @Controller
 @RequestMapping(value = "/monsterinfo")
@@ -28,17 +30,20 @@ public class MonsterInfoController {
 	IPetDictionnaryService ipd;
 
 	@Resource
+	MonsterService ms;
+
+	@Resource
 	IMonsterInfoService ims;
 
 	@Resource
 	ISkillMonsterService ism;
 
 	@RequestMapping(value = "")
-	private ModelAndView index(@RequestParam(value="pageNum",required=false) Integer pageNum) {
+	private ModelAndView index(@RequestParam(value = "pageNum", required = false) Integer pageNum) {
 		if (pageNum == null) {
 			pageNum = 1;
 		}
-		List<PetDictionary> pd = ipd.queryPetByPage(pageNum, 20);
+		List<Monster> pd = ms.queryPetByPage(pageNum, 20);
 		PageInfo<?> info = new PageInfo<>(pd);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PetInfo", pd);
@@ -50,26 +55,30 @@ public class MonsterInfoController {
 	}
 
 	@RequestMapping(value = "/query")
-	private ModelAndView queryByEntity(@ModelAttribute PetDictionary pdEntity,
+	private ModelAndView queryByEntity(@ModelAttribute Monster pdEntity,
 			@RequestParam(value = "pageNum", required = false) Integer pageNum) {
 		if (pageNum == null) {
 			pageNum = 1;
 		}
-		if ("全部".equals(pdEntity.getType())) {
+		if ("".equals(pdEntity.getType())) {
 			pdEntity.setType(null);
 		}
 		if ("".equals(pdEntity.getDefName())) {
 			pdEntity.setDefName(null);
 		}
+		if ("".equals(pdEntity.getStar())) {
+			pdEntity.setStar(null);
+		}
 		Map<String, String> map = new HashMap<String, String>();
-		List<PetDictionary> pd = ipd.queryPetByEntity(pageNum, 20, pdEntity);
+		List<Monster> pd = ms.queryPetByEntity(pageNum, 20, pdEntity);
 		PageInfo<?> info = new PageInfo<>(pd);
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("PetInfo", pd);
 		mv.addObject("PageNum", pageNum);
 		mv.addObject("EndPageNum", info.getPages());
 		mv.addObject("defName", pdEntity.getDefName());
-		mv.addObject("type", pdEntity.getType()==null?"全部":pdEntity.getType());
+		mv.addObject("type", pdEntity.getType() == null ? "" : pdEntity.getType());
+		mv.addObject("star", pdEntity.getStar() == null ? "" : pdEntity.getStar());
 		mv.setViewName("index");
 		return mv;
 	}

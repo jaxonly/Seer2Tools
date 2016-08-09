@@ -48,18 +48,20 @@ public class ParseXML {
 			
 			
 			PreparedStatement ps3 = conn.prepareStatement(
-					"INSERT INTO `monster_info`.`monster` (`id`, `def_name`) VALUES (?, ?);");
+					"INSERT INTO `monster_info`.`monster` (`id`, `def_name`, `type` , `star`) VALUES (?, ?,?,?);");
 			while (it2.hasNext()) {
 				Element monster = (Element) it2.next();
 				ps3.setShort(1, Short.parseShort(replaceNull(monster.attributeValue("ID"))));
 				ps3.setString(2, monster.attributeValue("DefName"));
+				ps3.setByte(3, Byte.parseByte(replaceNull(monster.attributeValue("Type"))));
+				ps3.setByte(4, Byte.parseByte(replaceNull(monster.attributeValue("StarLv"))));
 				ps3.execute();
 			}
 			
 			
 			PreparedStatement ps = conn.prepareStatement(
-					"INSERT INTO monster_info (`numbers_id`, `id`, `def_name`, `growth_type`, `hp`, `atk`, `def`, `sp_atk`, `sp_def`, `spd`, `yielding_exp`, `yielding_ev`, `evolves_from`, `evolves_to`, `evolves_lv`, `type`, `catch_rat`, `evolv_flag`, `free_forbidden`, `height`, `weight`, `gender`, `features`, `ride`, `use_num`, `chg_mon_id`)"
-							+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					"INSERT INTO monster_info (`numbers_id`, `id`, `def_name`, `growth_type`, `hp`, `atk`, `def`, `sp_atk`, `sp_def`, `spd`, `yielding_exp`, `yielding_ev`, `evolves_from`, `evolves_to`, `evolves_lv`, `type`, `catch_rat`, `evolv_flag`, `free_forbidden`, `height`, `weight`, `gender`, `features`, `ride`, `use_num`, `chg_mon_id`,`star`)"
+							+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			PreparedStatement ps2 = conn.prepareStatement(
 					"INSERT INTO skill_monster (`monster_id`, `Learning_Lv`, `skill_id`) VALUES (?, ?, ?)");
 			while (it.hasNext()) {
@@ -90,6 +92,7 @@ public class ParseXML {
 				ps.setByte(24, Byte.parseByte(replaceNull(monster.attributeValue("ride"))));
 				ps.setByte(25, Byte.parseByte(replaceNull(monster.attributeValue("use_num"))));
 				ps.setShort(26, Short.parseShort(replaceNull(monster.attributeValue("ChgMonId"))));
+				ps.setByte(27, Byte.parseByte(replaceNull(monster.attributeValue("StarLv"))));
 				try {
 					ps.execute();
 				} catch (Exception e) {
@@ -309,8 +312,8 @@ public class ParseXML {
 	private Connection getConn() throws Exception {
 		Connection conn = null;
 		String url = "jdbc:mysql://localhost:3306/monster_info?useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC";
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		conn = DriverManager.getConnection(url, "root", "root");
+		Class.forName("com.mysql.jdbc.Driver");
+		conn = DriverManager.getConnection(url, "root", "c7876ca1");
 		return conn;
 	}
 

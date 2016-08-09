@@ -5,6 +5,10 @@ public class Monster {
 
     private String defName;
 
+    private Byte type;
+    
+    private Byte star;
+    
     public Short getId() {
         return id;
     }
@@ -20,6 +24,22 @@ public class Monster {
     public void setDefName(String defName) {
         this.defName = defName == null ? null : defName.trim();
     }
+    
+	public Byte getType() {
+		return type;
+	}
+
+	public void setType(Byte type) {
+		this.type = type;
+	}
+
+	public Byte getStar() {
+		return star;
+	}
+
+	public void setStar(Byte star) {
+		this.star = star;
+	}
 
 	@Override
 	public String toString() {

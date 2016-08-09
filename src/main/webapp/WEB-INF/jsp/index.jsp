@@ -2,7 +2,7 @@
 <%@page import="com.jax.seer2tools.entity.PetDictionary"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,32 +35,45 @@
 		<div class="row">
 			<div class="col-sm-8 blog-main">
 				<div style="float: right;">
-					<form class="form-inline" action="${pageContext.request.contextPath}/monsterinfo/query" method="get">
+					<form class="form-inline"
+						action="${pageContext.request.contextPath}/monsterinfo/query"
+						method="get">
 						<div class="form-group">
 							<label for="type">属性</label> <select id="type"
 								class="form-control" name="type" style="display: inline-block;">
-								<option selected="selected">全部</option>
-								<option>普通</option>
-								<option>草</option>
-								<option>水</option>
-								<option>火</option>
-								<option>风</option>
-								<option>虫</option>
-								<option>飞行</option>
-								<option>电</option>
-								<option>地面</option>
-								<option>冰</option>
-								<option>超能</option>
-								<option>光</option>
-								<option>暗影</option>
-								<option>战斗</option>
-								<option>龙</option>
-								<option>沙漠</option>
-								<option>神秘</option>
-								<option>特质</option>
-								<option>基佬王</option>
-								<option>上古</option>
-								<option>圣灵</option>
+								<option value="" selected="selected">全部</option>
+								<option value="1">普通</option>
+								<option value="2">草</option>
+								<option value="3">水</option>
+								<option value="4">火</option>
+								<option value="5">风</option>
+								<option value="6">虫</option>
+								<option value="7">飞行</option>
+								<option value="8">电</option>
+								<option value="9">地面</option>
+								<option value="10">冰</option>
+								<option value="11">超能</option>
+								<option value="12">光</option>
+								<option value="13">暗影</option>
+								<option value="14">战斗</option>
+								<option value="15">龙</option>
+								<option value="16">沙漠</option>
+								<option value="17">神秘</option>
+								<option value="18">特质</option>
+								<option value="19">基佬王</option>
+								<option value="20">上古</option>
+								<option value="21">圣灵</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="star">星级</label> <select id="star"
+								class="form-control" name="star" style="display: inline-block;">
+								<option value="" selected="selected">全部</option>
+								<option value="1">❤</option>
+								<option value="2">❤❤</option>
+								<option value="3">❤❤❤</option>
+								<option value="4">❤❤❤❤</option>
+								<option value="5">❤❤❤❤❤</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -76,13 +89,15 @@
 							<th>编号</th>
 							<th>名字</th>
 							<th>属性</th>
+							<th>星级</th>
 						</tr>
 						<c:forEach items="${PetInfo}" var="pet">
 							<tr>
 								<td>${pet.id }</td>
 								<td><a
 									href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">${pet.defName }</a></td>
-								<td>${pet.type }</td>
+								<td name="types">${pet.type }</td>
+								<td name="stars">${pet.star }</td>
 							</tr>
 						</c:forEach>
 					</table>
@@ -100,19 +115,23 @@
 	<!-- /.container -->
 	<jsp:include page="footer.jsp"></jsp:include>
 
-	<b id="url">
-		 <c:if test="${defName != null && type !=null}">
-							/query?defName=${defName}&type=${type }&
+	<b id="url"> 
+		<c:if test="${ !empty defName && !empty type && !empty star}">
+				/query?defName=${defName}&type=${type}&
 		</c:if> 
-		<c:if test="${defName == null || type ==null}">
-			<c:if test="${defName != null }">
-				/query?defName=${ defName}&
+		<c:if test="${ !empty defName || !empty type || !empty star}">
+			/query?
+			<c:if test="${ !empty defName}">
+				defName=${defName}&
 			</c:if>
-			<c:if test="${type != null }">
-				/query?type=${type}&
+			<c:if test="${ !empty type}">
+				type=${type}&
 			</c:if>
-		</c:if>
-		 <c:if test="${defName == null && type ==null}">
+			<c:if test="${ !empty star}">
+				star=${star}&
+			</c:if>
+		</c:if> 
+		<c:if test="${ !empty defName && !empty type && !empty star}">
 			?
 		</c:if>
 	</b>
@@ -120,6 +139,9 @@
 	<script type="text/javascript">
 		if ('${type}' != '') {
 			$("#type").val('${type}');
+		}
+		if ('${star}' != '') {
+			$("#star").val('${star}');
 		}
 		$("#defName").val('${defName}');
 		laypage({
@@ -140,6 +162,99 @@
 		    }
 		});
 		$("#url").hide();
+		
+		function Type() {
+			items = document.getElementsByName("types");
+			for (var int = 0; int < items.length; int++) {
+				var element = items[int];
+				var te = element.innerText;
+				switch (te) {
+				case '1':
+					te = '普通';
+					break;
+				case '2':
+					te = '草';
+					break;
+				case '3':
+					te = '水';
+					break;
+				case '4':
+					te = '火';
+					break;
+				case '5':
+					te = '风';
+					break;
+				case '6':
+					te = '虫';
+					break;
+				case '7':
+					te = '飞行';
+					break;
+				case '8':
+					te = '电';
+					break;
+				case '9':
+					te = '地面';
+					break;
+				case '10':
+					te = '冰';
+					break;
+				case '11':
+					te = '超能';
+					break;
+				case '12':
+					te = '光';
+					break;
+				case '13':
+					te = '暗影';
+					break;
+				case '14':
+					te = '战斗';
+					break;
+				case '15':
+					te = '龙';
+					break;
+				case '16':
+					te = '沙漠';
+					break;
+				case '17':
+					te = '神秘';
+					break;
+				case '18':
+					te = '特质';
+					break;
+				case '19':
+					te = '基佬王';
+					break;
+				case '20':
+					te = '上古';
+					break;
+				case '21':
+					te = '圣灵';
+					break;
+				default:
+					te = '未知';
+					break;
+				}
+				element.innerText = te;
+			}
+		}
+		Type();
+		function Star() {
+			items = document.getElementsByName("stars");
+			for (var i = 0; i < items.length; i++) {
+				var element = items[i];
+				var te = "";
+				if (element.innerText=="0") {
+					te="未知";
+				}
+				for (var j = 0; j < element.innerText; j++) {
+					te+="❤";
+				}
+				element.innerText = te;
+			}
+		}
+		Star();
 	</script>
 </body>
 </html>
