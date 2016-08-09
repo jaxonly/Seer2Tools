@@ -55,7 +55,7 @@ public class MonsterInfoController {
 		if (pageNum == null) {
 			pageNum = 1;
 		}
-		if ("全部".equals(pdEntity.getType())) {
+		if ("鍏ㄩ儴".equals(pdEntity.getType())) {
 			pdEntity.setType(null);
 		}
 		if ("".equals(pdEntity.getDefName())) {
@@ -69,7 +69,7 @@ public class MonsterInfoController {
 		mv.addObject("PageNum", pageNum);
 		mv.addObject("EndPageNum", info.getPages());
 		mv.addObject("defName", pdEntity.getDefName());
-		mv.addObject("type", pdEntity.getType()==null?"全部":pdEntity.getType());
+		mv.addObject("type", pdEntity.getType()==null?"鍏ㄩ儴":pdEntity.getType());
 		mv.setViewName("index");
 		return mv;
 	}
