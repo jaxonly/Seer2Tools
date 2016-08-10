@@ -34,14 +34,24 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-8 blog-main">
-				<div style="float:left;">
-						<label>ID</label> <input type="text" class="form-control" id="PetID" maxlength="20000">
-						<button type="button" class="btn btn-default" id="zhida">直达</button>
+				<div style="float: left;">
+					<label>ID</label> <input type="text" class="form-control"
+						id="PetID" maxlength="20000">
+					<button type="button" class="btn btn-default" id="zhida">直达</button>
 				</div>
 				<div style="float: right;">
 					<form class="form-inline"
 						action="${pageContext.request.contextPath}/monsterinfo/query"
 						method="get">
+						<div class="checkbox">
+							<label> 
+								<input type="checkbox"
+									<c:if test="${!empty boosAi}">
+										 checked="checked"
+									</c:if>
+								 name="boosAi"/><b>BoosAI</b>
+							</label>
+						</div>
 						<div class="form-group">
 							<label for="type">属性</label> <select id="type"
 								class="form-control" name="type" style="display: inline-block;">
@@ -138,6 +148,9 @@
 			</c:if>
 			<c:if test="${ !empty star}">
 				star=${star}&
+			</c:if>
+			<c:if test="${ !empty boosAi}">
+				boosAi=${on}&
 			</c:if>
 		</c:if> <c:if test="${ empty defName && empty type && empty star}">
 			?

@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
@@ -30,6 +31,7 @@ public class ParseXML {
 		parseEmblemTwoXML();
 		parsePetXML();
 		parsePetDictionaryXML();
+		atler();
 	}
 
 	// 57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin
@@ -347,5 +349,17 @@ public class ParseXML {
 			e.printStackTrace();
 		}
 		System.out.println("dropTableData() Stop");
+	}
+	
+	private void atler() {
+		 try {
+			Statement st = getConn().createStatement();
+			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id` = 500");
+			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id`  between 1000 and 2500");
+			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id`  between 2992 and 2999");
+			st.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -53,6 +53,9 @@
 			<if test="star!=null">
 				and star = #{star}
 			</if>
+			<if test="boosAi==null">
+				and boos_ai = 0
+			</if>
 		</where>
 		ORDER BY is_new DESC, id ASC 
 	</select>

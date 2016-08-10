@@ -11,6 +11,8 @@ public class Monster {
     
     private Byte isNew;
     
+    private String boosAi;
+    
     public Short getId() {
         return id;
     }
@@ -49,6 +51,14 @@ public class Monster {
 
 	public void setIsNew(Byte isNew) {
 		this.isNew = isNew;
+	}
+
+	public String getBoosAi() {
+		return boosAi;
+	}
+
+	public void setBoosAi(String boosAi) {
+		this.boosAi = boosAi;
 	}
 
 	@Override

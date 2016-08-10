@@ -68,6 +68,7 @@ public class MonsterInfoController {
 		if (pageNum == null) {
 			pageNum = 1;
 		}
+		System.out.println(pdEntity.getBoosAi());
 		if ("".equals(pdEntity.getType())) {
 			pdEntity.setType(null);
 		}
@@ -87,6 +88,7 @@ public class MonsterInfoController {
 		mv.addObject("defName", pdEntity.getDefName());
 		mv.addObject("type", pdEntity.getType() == null ? "" : pdEntity.getType());
 		mv.addObject("star", pdEntity.getStar() == null ? "" : pdEntity.getStar());
+		mv.addObject("boosAi", pdEntity.getBoosAi() == null ? "" : pdEntity.getBoosAi());
 		mv.setViewName("index");
 		return mv;
 	}
