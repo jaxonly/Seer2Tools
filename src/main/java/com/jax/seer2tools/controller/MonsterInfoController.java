@@ -93,14 +93,16 @@ public class MonsterInfoController {
 
 	@RequestMapping(value = "/info/{PetId}")
 	private ModelAndView info(@PathVariable("PetId") Short PetId) {
-		PetDictionary pd = ipd.queryOneById(PetId);
-		MonsterInfo mi = ims.queryMonsterInfoById(PetId);
-		List<SkillMonster> sks = ism.querySkillMonsterAll(PetId);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("pd", pd);
-		mv.addObject("mi", mi);
-		mv.addObject("Skills", sks);
 		mv.setViewName("info");
+		if (PetId < 20000) {
+			PetDictionary pd = ipd.queryOneById(PetId);
+			MonsterInfo mi = ims.queryMonsterInfoById(PetId);
+			List<SkillMonster> sks = ism.querySkillMonsterAll(PetId);
+			mv.addObject("pd", pd);
+			mv.addObject("mi", mi);
+			mv.addObject("Skills", sks);
+		}
 		return mv;
 	}
 	@RequestMapping(value = "/HideMove/{Id}")

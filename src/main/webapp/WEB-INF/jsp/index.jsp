@@ -34,6 +34,10 @@
 		</div>
 		<div class="row">
 			<div class="col-sm-8 blog-main">
+				<div style="float:left;">
+						<label>ID</label> <input type="text" class="form-control" id="PetID" maxlength="20000">
+						<button type="button" class="btn btn-default" id="zhida">直达</button>
+				</div>
 				<div style="float: right;">
 					<form class="form-inline"
 						action="${pageContext.request.contextPath}/monsterinfo/query"
@@ -96,12 +100,10 @@
 								<td>${pet.id }</td>
 								<td><a
 									href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">
-										${pet.defName }
-										<c:if test="${pet.isNew != 0 }">
+										${pet.defName } <c:if test="${pet.isNew != 0 }">
 											<span class="label label-success">New</span>
 										</c:if>
-									</a>
-								</td>
+								</a></td>
 								<td name="types">${pet.type }</td>
 								<td name="stars">${pet.star }</td>
 							</tr>
@@ -111,7 +113,9 @@
 					<div id="page" align="center"></div>
 				</c:if>
 				<c:if test="${PetSize == 0}">
-					找不到精灵了~
+					<h3>
+						找不到精灵了~
+						</h4>
 				</c:if>
 			</div>
 			<jsp:include page="callMe.jsp"></jsp:include>
@@ -121,11 +125,10 @@
 	<!-- /.container -->
 	<jsp:include page="footer.jsp"></jsp:include>
 
-	<b id="url"> 
-		<c:if test="${ !empty defName && !empty type && !empty star}">
+	<b id="url"> <c:if
+			test="${ !empty defName && !empty type && !empty star}">
 				/query?defName=${defName}&type=${type}&
-		</c:if> 
-		<c:if test="${ !empty defName || !empty type || !empty star}">
+		</c:if> <c:if test="${ !empty defName || !empty type || !empty star}">
 			/query?
 			<c:if test="${ !empty defName}">
 				defName=${defName}&
@@ -136,13 +139,17 @@
 			<c:if test="${ !empty star}">
 				star=${star}&
 			</c:if>
-		</c:if> 
-		<c:if test="${ empty defName && empty type && empty star}">
+		</c:if> <c:if test="${ empty defName && empty type && empty star}">
 			?
 		</c:if>
 	</b>
 
 	<script type="text/javascript">
+		$("#zhida").click(function() {
+			if ($("#PetID").val() != "") {
+				location.href = "${pageContext.request.contextPath}/monsterinfo/info/"+$("#PetID").val();
+			}
+		});
 		if ('${type}' != '') {
 			$("#type").val('${type}');
 		}
