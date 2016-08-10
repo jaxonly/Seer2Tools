@@ -131,7 +131,7 @@
 				star=${star}&
 			</c:if>
 		</c:if> 
-		<c:if test="${ !empty defName && !empty type && !empty star}">
+		<c:if test="${ empty defName && empty type && empty star}">
 			?
 		</c:if>
 	</b>

@@ -213,7 +213,7 @@
 							</tr>
 							<tr>
 								<th>种族值</th>
-								<td>${mi.hp+50}</td>
+								<td>${mi.hp}</td>
 								<td>${mi.atk+50}</td>
 								<td>${mi.def+50}</td>
 								<td>${mi.spAtk+50}</td>
