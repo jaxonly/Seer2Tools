@@ -9,6 +9,8 @@ public class Monster {
     
     private Byte star;
     
+    private Byte isNew;
+    
     public Short getId() {
         return id;
     }
@@ -39,6 +41,14 @@ public class Monster {
 
 	public void setStar(Byte star) {
 		this.star = star;
+	}
+
+	public Byte getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Byte isNew) {
+		this.isNew = isNew;
 	}
 
 	@Override

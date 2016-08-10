@@ -95,7 +95,13 @@
 							<tr>
 								<td>${pet.id }</td>
 								<td><a
-									href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">${pet.defName }</a></td>
+									href="${pageContext.request.contextPath}/monsterinfo/info/${ pet.id }">
+										${pet.defName }
+										<c:if test="${pet.isNew != 0 }">
+											<span class="label label-success">New</span>
+										</c:if>
+									</a>
+								</td>
 								<td name="types">${pet.type }</td>
 								<td name="stars">${pet.star }</td>
 							</tr>

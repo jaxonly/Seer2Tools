@@ -29,6 +29,9 @@
 		<div class="blog-header">
 			<div class="page-header">
 				<h1>${mi.defName}
+					<c:if test="${pd.isNew!=0 }">
+						<span class="label label-success">New</span>
+					</c:if>
 					<c:if test="${mi.freeForbidden==0 }">
 						<span class="label label-success">可放生</span>
 					</c:if>

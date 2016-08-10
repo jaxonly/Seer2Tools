@@ -6,6 +6,7 @@
 		<result column="def_name" jdbcType="VARCHAR" property="defName" />
 		<result column="star" jdbcType="TINYINT" property="star" />
 		<result column="type" jdbcType="TINYINT" property="type" />
+		<result column="is_new" jdbcType="TINYINT" property="isNew" />
 	</resultMap>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
 		delete from monster
@@ -25,19 +26,20 @@
 	</update>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Short"
 		resultMap="BaseResultMap">
-		select id, def_name, star
+		select id, def_name, star, is_new
 		from monster
 		where id = #{id,jdbcType=SMALLINT}
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap">
-		select id, def_name, type, star
+		select id, def_name, type, star, is_new
 		from monster
 		where id != 0
+		ORDER BY is_new DESC, id ASC 
 	</select>
 	<select id="selectByEntity" parameterType="com.jax.seer2tools.entity.Monster"
 		resultMap="BaseResultMap">
 		select
-			id, def_name, type, star
+			id, def_name, type, star, is_new
 		from
 			monster
 		<where>
@@ -52,5 +54,6 @@
 				and star = #{star}
 			</if>
 		</where>
+		ORDER BY is_new DESC, id ASC 
 	</select>
 </mapper>
