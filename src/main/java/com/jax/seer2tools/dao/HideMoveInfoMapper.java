@@ -9,4 +9,5 @@ public interface HideMoveInfoMapper {
     int insert(HideMoveInfo record);
 
     List<HideMoveInfo> selectAll();
+    HideMoveInfo selectById(Integer id);
 }

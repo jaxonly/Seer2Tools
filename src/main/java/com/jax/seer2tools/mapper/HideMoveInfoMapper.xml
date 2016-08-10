@@ -16,4 +16,9 @@
     select id, tips
     from hide_move_info
   </select>
+  <select id="selectById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select id, tips
+    from hide_move_info
+    where id = #{_parameter}
+  </select>
 </mapper>
