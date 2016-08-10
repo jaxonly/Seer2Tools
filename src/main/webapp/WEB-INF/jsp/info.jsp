@@ -255,7 +255,7 @@
 							<tr>
 								<th>极限值</th>
 								<td><fmt:formatNumber
-										value="${( (mi.hp*2 + 120) * 100/100 + 100 + 10 + 255/4) *1.1
+										value="${( (mi.hp*2 + 120) * 100/100 + 100 + 10 + 255/4)
 }"
 										pattern="#" /></td>
 								<td><fmt:formatNumber
@@ -278,6 +278,9 @@
 										value="${( (mi.spd*2 + 120) * 100/100 + 100 + 10 + 255/4) *1.1
 }"
 										pattern="#" /></td>
+							</tr>
+							<tr>
+								<td colspan="7"><b>Tips:极限值不包括星魂加成</b></td>
 							</tr>
 						</table>
 					</div>
