@@ -21,7 +21,7 @@
 <!-- 分页 -->
 <script src="${pageContext.request.contextPath}/js/laypage.js"></script>
 <meta charset="UTF-8">
-<title>Index</title>
+<title>精灵信息查询工具-最详细的精灵信息查询工具</title>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -29,7 +29,7 @@
 	<div class="container">
 		<div class="blog-header">
 			<h1 class="blog-title">精灵信息查询工具</h1>
-			<p class="lead blog-description">最详细的精灵信息查询工具</p>
+			<p class="lead blog-description">最详细的精灵信息查询工具，只有想不到，没有查不到~</p>
 
 		</div>
 		<div class="row">

@@ -1,23 +1,28 @@
 package com.jax.seer2tools.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.jax.seer2tools.entity.HideMoveInfo;
 import com.jax.seer2tools.entity.Monster;
 import com.jax.seer2tools.entity.MonsterInfo;
 import com.jax.seer2tools.entity.PetDictionary;
 import com.jax.seer2tools.entity.SkillMonster;
+import com.jax.seer2tools.service.IHideMoveInfoService;
 import com.jax.seer2tools.service.IMonsterInfoService;
 import com.jax.seer2tools.service.IPetDictionnaryService;
 import com.jax.seer2tools.service.ISkillMonsterService;
@@ -38,6 +43,9 @@ public class MonsterInfoController {
 	@Resource
 	ISkillMonsterService ism;
 
+	@Resource
+	IHideMoveInfoService ihm;
+	
 	@RequestMapping(value = "")
 	private ModelAndView index(@RequestParam(value = "pageNum", required = false) Integer pageNum) {
 		if (pageNum == null) {
@@ -94,5 +102,15 @@ public class MonsterInfoController {
 		mv.addObject("Skills", sks);
 		mv.setViewName("info");
 		return mv;
+	}
+	@RequestMapping(value = "/HideMove/{Id}")
+	private void info(@PathVariable("Id") Integer Id,HttpServletResponse response) throws IOException {
+		HideMoveInfo hm = ihm.queryById(Id);
+		response.setContentType("text/html;charset=utf-8");
+		if (hm==null) {
+			response.getWriter().print("");
+		}else{
+			response.getWriter().print(hm.getTips());
+		}
 	}
 }

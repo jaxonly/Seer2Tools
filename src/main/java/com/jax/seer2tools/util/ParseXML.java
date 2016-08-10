@@ -141,7 +141,10 @@ public class ParseXML {
 				Element monster = (Element) it.next();
 				ps.setInt(1, Integer.parseInt(replaceNull(monster.attributeValue("ID"))));
 				ps.setString(2, monster.attributeValue("Tips"));
-				ps.execute();
+				try{
+					ps.execute();
+				}catch (Exception e) {
+				}
 			}
 			ps.close();
 			conn.close();

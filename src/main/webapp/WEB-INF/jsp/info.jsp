@@ -4,6 +4,7 @@
 	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +16,35 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<style type="text/css">
+@media (max-width: 768px) { 
+  .minkd{
+  	min-width:1px;
+  }
+}
+@media (min-width: 768px) { 
+  .minkd{
+  	min-width:45px;
+  }
+}
+
+@media (max-width: 768px) { 
+  .minkds{
+  	min-width:1px;
+  }
+}
+@media (min-width: 768px) { 
+  .minkds{
+  	min-width:87px;
+  }
+}
+</style>
 <script
 	src="${pageContext.request.contextPath}/js/jquery-3.1.0.slim.min.js"></script>
 <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <meta charset="UTF-8">
-<title>Info</title>
+<title>详细信息</title>
 </head>
 <body>
 	<jsp:include page="header.jsp"></jsp:include>
@@ -55,13 +79,13 @@
 							<c:if test="${mi.type!=null }">
 								<tr>
 									<td>属性</td>
-									<td>${mi.type }</td>
+									<td name="type">${mi.type }</td>
 								</tr>
 							</c:if>
 							<c:if test="${mi.features!=null }">
 								<tr>
 									<td>特性</td>
-									<td>${mi.features }</td>
+									<td>${pd.features }</td>
 								<tr>
 							</c:if>
 							<c:if test="${pd.emblem.name!=null }">
@@ -73,13 +97,13 @@
 							<c:if test="${mi.height!=null }">
 								<tr>
 									<td>身高</td>
-									<td>${mi.height }</td>
+									<td>${fn:split(mi.height,' ')[0]}cm-${fn:split(mi.height,' ')[1]}cm</td>
 								<tr>
 							</c:if>
 							<c:if test="${mi.weight!=null }">
 								<tr>
 									<td>体重</td>
-									<td>${mi.weight }</td>
+									<td>${fn:split(mi.weight,' ')[0]}kg-${fn:split(mi.weight,' ')[1]}kg</td>
 								<tr>
 							</c:if>
 							<c:if test="${pd.foundin!=null }">
@@ -168,13 +192,18 @@
 							<c:if test="${mi.catchRat!=null }">
 								<tr>
 									<td>捕捉率</td>
-									<td>${mi.catchRat }</td>
+									<td><c:if test="${mi.catchRat ==0}">
+											不可捕捉
+										</c:if> <c:if test="${mi.catchRat !=0}">
+											${mi.catchRat }(1-255)
+										</c:if></td>
 								</tr>
 							</c:if>
 							<c:if test="${mi.gender!=null }">
 								<tr>
 									<td>雌雄比例</td>
-									<td>${mi.gender }</td>
+									<td>${fn:replace(mi.gender, 
+                                ' ', ':') }</td>
 								</tr>
 							</c:if>
 							<c:if test="${mi.useNum!=null }">
@@ -263,32 +292,42 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">技能信息</div>
 					<div class="panel-body" style="padding: 0px 0px 0px 0px">
-						<table class="table table-striped">
+						<table class="table">
 							<tr>
-								<th>等级</th>
-								<th>名字</th>
-								<th>类别</th>
-								<th>属性</th>
-								<th>威力</th>
-								<th>命中</th>
-								<th>怒气</th>
-								<th>描述</th>
+								<th class="minkd" >等级</th>
+								<th class="minkds">名字</th>
+								<th class="minkd" >类别</th>
+								<th class="minkd" >属性</th>
+								<th class="minkd" >威力</th>
+								<th class="minkd" >命中</th>
+								<th class="minkd" >怒气</th>
+								<th class="minkd" >描述</th>
 							</tr>
 							<c:forEach items="${Skills}" var="Skill">
 								<tr>
-									<td><c:if test="${Skill.learningLv > 100}">
-											隐藏技能
-										</c:if> <c:if test="${Skill.learningLv < 101}">
-											${Skill.learningLv}
-										</c:if></td>
+									<c:if test="${Skill.learningLv > 100}">
+										<td name="hideSkill">${Skill.skillId}</td>
+									</c:if>
+									<c:if test="${Skill.learningLv < 101}">
+										<td>${Skill.learningLv}</td>
+									</c:if>
 									<td>${Skill.skill.name}</td>
 									<td name="category">${Skill.skill.category}</td>
 									<td name="type">${Skill.skill.type}</td>
-									<td>${Skill.skill.power}</td>
-									<td>${Skill.skill.accuracy}%</td>
-									<td>${Skill.skill.anger}</td>
+									<td style="text-align: right">${Skill.skill.power}</td>
+									<td style="text-align: right">${Skill.skill.accuracy}%</td>
+									<td style="text-align: right">${Skill.skill.anger}</td>
 									<td>${Skill.skill.tips}</td>
+									<c:if test="${Skill.learningLv > 100}">
 								</tr>
+								<tr style="background-color: #fff5ee">
+									<td colspan="8"><label>获得方法：</label><label
+										name="hideSkillTips"></label></td>
+								</tr>
+								</c:if>
+								<c:if test="${Skill.learningLv < 100}">
+									</tr>
+								</c:if>
 							</c:forEach>
 						</table>
 					</div>
@@ -406,8 +445,34 @@
 			}
 		}
 
+		function HideMove() {
+			/* http://localhost:8080/seer2tools/monsterinfo/HideMove/10260 */
+			var ids = document.getElementsByName("hideSkill");
+			var tips = document.getElementsByName("hideSkillTips");
+			var xmlhttp = xmlhttp = new XMLHttpRequest();
+			var url = "${pageContext.request.contextPath}/monsterinfo/HideMove/";
+			var id = "";
+			var s = "";
+			for (var i = 0; i < ids.length; i++) {
+				id = ids[i].innerHTML;
+				s = url + id;
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						if (xmlhttp.responseText == "") {
+							tips[i].innerHTML = "暂无记录"
+						}else{
+							tips[i].innerHTML = xmlhttp.responseText;
+						}
+						ids[i].innerHTML="隐藏";
+					}
+				}
+				xmlhttp.open("GET",s,false);
+				xmlhttp.send();
+			}
+		}
 		Type();
 		Category();
+		HideMove();
 	</script>
 </body>
 </html>
