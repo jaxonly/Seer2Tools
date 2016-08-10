@@ -15,5 +15,4 @@ public class ParseSWFTest {
 	public void testXML() throws Exception {
 		ParseXML ps = new ParseXML();
 	}
-
 }

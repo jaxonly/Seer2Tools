@@ -28,8 +28,8 @@ public class ParseXML {
 		parseSkillXML();
 		parseEmblemXML();
 		parseEmblemTwoXML();
-		parsePetDictionaryXML();
 		parsePetXML();
+		parsePetDictionaryXML();
 	}
 
 	// 57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin
@@ -199,6 +199,8 @@ public class ParseXML {
 			PreparedStatement ps = conn.prepareStatement(
 					"INSERT INTO pet_dictionary (`Numbers_ID`, `emblem_ID`, `Def_Name`, `Type`, `Height`, `Weight`, `Foundin`, `is_New`, `Features`, `intro`, `chara`, `chara_Point`, `recommend_Quality`, `recommend_Skill`, `get_Way`, `is_Close`, `change_Tip`,`ID`,`superModule`)"
 							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement ps2 = conn.prepareStatement(
+					"UPDATE `monster_info`.`monster` SET `is_new`=1 WHERE  `id`=?");
 			while (it.hasNext()) {
 				Element monster = (Element) it.next();
 				ps.setShort(1, Short.parseShort(replaceNull(monster.attributeValue("NumbersID"))));
@@ -220,6 +222,10 @@ public class ParseXML {
 				ps.setString(17, monster.attributeValue("changeTip"));
 				ps.setShort(18, Short.parseShort(replaceNull(monster.attributeValue("ID"))));
 				ps.setString(19, monster.attributeValue("superModule"));
+				if ("1".equals(monster.attributeValue("isNew"))) {
+					ps2.setShort(1, Short.parseShort(replaceNull(monster.attributeValue("ID"))));
+					ps2.execute();
+				}
 				try {
 					ps.execute();
 				} catch (Exception e) {
