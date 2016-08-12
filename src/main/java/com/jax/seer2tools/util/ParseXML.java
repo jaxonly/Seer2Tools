@@ -4,7 +4,6 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 import java.util.List;
@@ -14,41 +13,40 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.jax.seer2tools.entity.EmblemInfo;
-import com.jax.seer2tools.entity.EmblemTwoInfo;
-import com.jax.seer2tools.entity.HideMoveInfo;
-import com.jax.seer2tools.entity.MonsterInfo;
-import com.jax.seer2tools.entity.PetDictionary;
-import com.jax.seer2tools.entity.SkillInfo;
-import com.jax.seer2tools.entity.SkillMonster;
-
 public class ParseXML {
-	public ParseXML() throws Exception {
-		dropTableData();
-		parseHideMovesXML();
-		parseSkillXML();
-		parseEmblemXML();
-		parseEmblemTwoXML();
-		parsePetXML();
-		parsePetDictionaryXML();
-		atler();
+	Connection conn;
+	String src;
+	String separator = File.separator;
+	public void ParseXMLStart(){
+		try {
+			src = this.getClass().getClassLoader().getResource("/").getPath();
+			conn = getConn();
+			dropTableData();
+			parseHideMovesXML();
+			parseSkillXML();
+			parseEmblemXML();
+			parseEmblemTwoXML();
+			parsePetXML();
+			parsePetDictionaryXML();
+			atler();
+			conn.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin
 	public void parsePetXML() throws Exception {
 		System.out.println("parsePetXML() Start....");
 		try {
-			Connection conn = getConn();
-			
+
 			SAXReader sax = new SAXReader();
 			Document xmlDoc = sax.read(new File(
-					"src/main/resources/xml/57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin"));
+					src+"xml"+separator+"57_com.taomee.seer2.app.config.PetConfig__petXmlClass_com.taomee.seer2.app.config.PetConfig__petXmlClass.bin"));
 			Element root = xmlDoc.getRootElement();
 			Iterator it = root.elementIterator("Monster");
 			Iterator it2 = root.elementIterator("Monster");
-			
-			
-			
+
 			PreparedStatement ps3 = conn.prepareStatement(
 					"INSERT INTO `monster_info`.`monster` (`id`, `def_name`, `type` , `star`) VALUES (?, ?,?,?);");
 			while (it2.hasNext()) {
@@ -59,8 +57,7 @@ public class ParseXML {
 				ps3.setByte(4, Byte.parseByte(replaceNull(monster.attributeValue("StarLv"))));
 				ps3.execute();
 			}
-			
-			
+
 			PreparedStatement ps = conn.prepareStatement(
 					"INSERT INTO monster_info (`numbers_id`, `id`, `def_name`, `growth_type`, `hp`, `atk`, `def`, `sp_atk`, `sp_def`, `spd`, `yielding_exp`, `yielding_ev`, `evolves_from`, `evolves_to`, `evolves_lv`, `type`, `catch_rat`, `evolv_flag`, `free_forbidden`, `height`, `weight`, `gender`, `features`, `ride`, `use_num`, `chg_mon_id`,`star`)"
 							+ " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -112,15 +109,16 @@ public class ParseXML {
 					ps2.setShort(1, Short.parseShort(replaceNull(monster.attributeValue("ID"))));
 					ps2.setShort(2, Short.parseShort(replaceNull(Move.attributeValue("LearningLv"))));
 					ps2.setShort(3, Short.parseShort(replaceNull(Move.attributeValue("ID"))));
-					try{
-					ps2.execute();
-					}catch (Exception e) {}
+					try {
+						ps2.execute();
+					} catch (Exception e) {
+					}
 				}
 			}
 			ps.close();
 			ps2.close();
 			ps3.close();
-			conn.close();
+
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -133,23 +131,23 @@ public class ParseXML {
 		try {
 			SAXReader sax = new SAXReader();
 			Document xmlDoc = sax.read(new File(
-					"src/main/resources/xml/11_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass.bin"));
+					src+"xml"+separator+"11_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass_com.taomee.seer2.app.config.SkillConfig__hideMovesXmlClass.bin"));
 			Element root = xmlDoc.getRootElement();
 			Element HideMoves = root.element("HideMoves");
 			Iterator it = HideMoves.elementIterator("HideMove");
-			Connection conn = getConn();
+
 			PreparedStatement ps = conn.prepareStatement("INSERT INTO hide_move_info (`id`, `tips`) VALUES (?, ?)");
 			while (it.hasNext()) {
 				Element monster = (Element) it.next();
 				ps.setInt(1, Integer.parseInt(replaceNull(monster.attributeValue("ID"))));
 				ps.setString(2, monster.attributeValue("Tips"));
-				try{
+				try {
 					ps.execute();
-				}catch (Exception e) {
+				} catch (Exception e) {
 				}
 			}
 			ps.close();
-			conn.close();
+
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -160,11 +158,11 @@ public class ParseXML {
 		try {
 			SAXReader sax = new SAXReader();
 			Document xmlDoc = sax.read(new File(
-					"src/main/resources/xml/79_com.taomee.seer2.app.config.SkillConfig__movesXmlClass_com.taomee.seer2.app.config.SkillConfig__movesXmlClass.bin"));
+					src+"xml"+separator+"79_com.taomee.seer2.app.config.SkillConfig__movesXmlClass_com.taomee.seer2.app.config.SkillConfig__movesXmlClass.bin"));
 			Element root = xmlDoc.getRootElement();
 			Element moves = root.element("Moves");
 			Iterator it = moves.elementIterator("Move");
-			Connection conn = getConn();
+
 			PreparedStatement ps = conn.prepareStatement(
 					"INSERT INTO skill_info (`id`, `name`, `category`, `type`, `power`, `accuracy`, `anger`, `tips`, `chg_move_id`) VALUES (?,?,?,?,?,?,?,?,?)");
 			while (it.hasNext()) {
@@ -184,7 +182,7 @@ public class ParseXML {
 				}
 			}
 			ps.close();
-			conn.close();
+
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -197,15 +195,15 @@ public class ParseXML {
 		try {
 			SAXReader sax = new SAXReader();
 			Document xmlDoc = sax.read(new File(
-					"src/main/resources/xml/new77_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass.bin"));
+					src+"xml"+separator+"new77_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass_com.taomee.seer2.app.config.PetConfig__dictionaryXmlClass.bin"));
 			Element root = xmlDoc.getRootElement();
 			Iterator it = root.elementIterator("Monster");
-			Connection conn = getConn();
+
 			PreparedStatement ps = conn.prepareStatement(
 					"INSERT INTO pet_dictionary (`Numbers_ID`, `emblem_ID`, `Def_Name`, `Type`, `Height`, `Weight`, `Foundin`, `is_New`, `Features`, `intro`, `chara`, `chara_Point`, `recommend_Quality`, `recommend_Skill`, `get_Way`, `is_Close`, `change_Tip`,`ID`,`superModule`)"
 							+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			PreparedStatement ps2 = conn.prepareStatement(
-					"UPDATE `monster_info`.`monster` SET `is_new`=1 WHERE  `id`=?");
+			PreparedStatement ps2 = conn
+					.prepareStatement("UPDATE `monster_info`.`monster` SET `is_new`=1 WHERE  `id`=?");
 			while (it.hasNext()) {
 				Element monster = (Element) it.next();
 				ps.setShort(1, Short.parseShort(replaceNull(monster.attributeValue("NumbersID"))));
@@ -237,7 +235,7 @@ public class ParseXML {
 				}
 			}
 			ps.close();
-			conn.close();
+
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -250,10 +248,10 @@ public class ParseXML {
 		try {
 			SAXReader sax = new SAXReader();
 			Document xmlDoc = sax.read(new File(
-					"src/main/resources/xml/43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin"));
+					src+"xml"+separator+"43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin"));
 			Element root = xmlDoc.getRootElement();
 			Iterator it = root.elementIterator("Cat");
-			Connection conn = getConn();
+
 			PreparedStatement ps = conn.prepareStatement(
 					"INSERT INTO emblem_info (`id`, `name`, `Numbers_ID`, `Honor_Price`, `Mi_Buy_ID`, `Tip`) VALUES (?,?,?,?,?,?)");
 			while (it.hasNext()) {
@@ -272,7 +270,7 @@ public class ParseXML {
 				}
 			}
 			ps.close();
-			conn.close();
+
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -285,10 +283,10 @@ public class ParseXML {
 		try {
 			SAXReader sax = new SAXReader();
 			Document xmlDoc = sax.read(new File(
-					"src/main/resources/xml/43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin"));
+					src+"xml"+separator+"43_com.taomee.seer2.app.config.ItemConfig__itemXmlClass_com.taomee.seer2.app.config.ItemConfig__itemXmlClass.bin"));
 			Element root = xmlDoc.getRootElement();
 			Iterator it = root.elementIterator("Cat");
-			Connection conn = getConn();
+
 			PreparedStatement ps = conn.prepareStatement(
 					"INSERT INTO `monster_info`.`emblem_two_info` (`id`, `name`, `type`, `Numbers_ID`, `Tip`) VALUES (?,?,?,?,?);");
 			while (it.hasNext()) {
@@ -306,7 +304,7 @@ public class ParseXML {
 				}
 			}
 			ps.close();
-			conn.close();
+
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
@@ -320,9 +318,9 @@ public class ParseXML {
 		return str;
 	}
 
-	private Connection getConn() throws Exception {
+	public Connection getConn() throws Exception {
 		Connection conn = null;
-		String url = "jdbc:mysql://localhost:3306/monster_info?useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC";
+		String url = "jdbc:mysql://127.0.0.1:3306/monster_info?useUnicode=true&characterEncoding=UTF8&serverTimezone=UTC";
 		Class.forName("com.mysql.jdbc.Driver");
 		conn = DriverManager.getConnection(url, "root", "c7876ca1");
 		return conn;
@@ -330,9 +328,7 @@ public class ParseXML {
 
 	private void dropTableData() {
 		System.out.println("dropTableData() Start....");
-		Connection conn;
 		try {
-			conn = getConn();
 			Statement st = conn.createStatement();
 			st.execute("DELETE FROM skill_monster WHERE 1=1");
 			st.execute("DELETE FROM pet_dictionary WHERE 1=1");
@@ -343,19 +339,18 @@ public class ParseXML {
 			st.execute("DELETE FROM monster WHERE id!=0");
 			st.execute("DELETE FROM skill_info WHERE 1=1");
 			st.close();
-			conn.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("dropTableData() Stop");
 	}
-	
+
 	private void atler() {
-		 try {
+		try {
 			Statement st = getConn().createStatement();
 			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id` = 500");
-			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id`  between 1000 and 2500");
+			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id`  between 1001 and 2500");
 			st.execute("UPDATE `monster_info`.`monster` SET `boos_ai`=1 WHERE  `id`  between 2992 and 2999");
 			st.close();
 		} catch (Exception e) {

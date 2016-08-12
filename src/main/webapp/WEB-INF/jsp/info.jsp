@@ -81,7 +81,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">基本信息</div>
 						<div class="panel-body" style="padding: 0px 0px 0px 0px">
-							<table class="table table-striped">
+							<table class="table">
 								<c:if test="${mi.type!=null }">
 									<tr>
 										<td>属性</td>
@@ -176,11 +176,14 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">拓展信息</div>
 						<div class="panel-body" style="padding: 0px 0px 0px 0px">
-							<table class="table table-striped">
+							<table class="table">
 								<c:if test="${mi.growthType!=null }">
 									<tr>
 										<td>成长类型</td>
 										<td>${mi.growthType }</td>
+									</tr>
+									<tr style="background-color: #fff5ee">
+										<td colspan="2"><label>Tips：成长类型与每级升级经验相关</label></td>
 									</tr>
 								</c:if>
 								<c:if test="${mi.yieldingExp!=null }">
