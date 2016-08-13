@@ -1,16 +1,11 @@
 package com.jax.seer2tools.util;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component("ParseService")
 public class ParseService {
-	@Scheduled(cron = "0 0 * ? * FRI") 
+	@Scheduled(cron = "0 * * ? * FRI") 
     public void ParseJob(){
 		try {
 			ParseSWF parseSWF = new ParseSWF();

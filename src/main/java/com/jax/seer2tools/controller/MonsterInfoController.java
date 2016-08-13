@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.github.pagehelper.PageInfo;
+import com.jax.seer2tools.entity.Donate;
 import com.jax.seer2tools.entity.HideMoveInfo;
 import com.jax.seer2tools.entity.Monster;
 import com.jax.seer2tools.entity.MonsterInfo;
 import com.jax.seer2tools.entity.PetDictionary;
 import com.jax.seer2tools.entity.SkillMonster;
+import com.jax.seer2tools.service.IDonateService;
 import com.jax.seer2tools.service.IHideMoveInfoService;
 import com.jax.seer2tools.service.IMonsterInfoService;
 import com.jax.seer2tools.service.IPetDictionnaryService;
@@ -45,6 +47,9 @@ public class MonsterInfoController {
 
 	@Resource
 	IHideMoveInfoService ihm;
+	
+	@Resource
+	IDonateService ids;
 	
 	@RequestMapping(value = "")
 	private ModelAndView index(@RequestParam(value = "pageNum", required = false) Integer pageNum) {
@@ -116,5 +121,14 @@ public class MonsterInfoController {
 		}else{
 			response.getWriter().print(hm.getTips());
 		}
+	}
+	
+	@RequestMapping(value = "/Donate")
+	private ModelAndView donate(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("donate");
+		List<Donate> donates = ids.queryAll();
+		mv.addObject("donates",donates);
+		return mv;
 	}
 }
