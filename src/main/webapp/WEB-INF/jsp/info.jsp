@@ -148,8 +148,6 @@
 										<td>${pd.changeTip }</td>
 									<tr>
 								</c:if>
-	
-	
 								<c:if test="${mi.evolvesFromInfo.id!=0 }">
 									<tr>
 										<td>上一形态</td>
@@ -171,7 +169,6 @@
 							</table>
 						</div>
 					</div>
-	
 					<!-- 拓展信息 -->
 					<div class="panel panel-default">
 						<div class="panel-heading">拓展信息</div>
@@ -228,8 +225,6 @@
 							</table>
 						</div>
 					</div>
-	
-	
 					<div class="panel panel-default">
 						<div class="panel-heading">数值信息</div>
 						<div class="panel-body" style="padding: 0px 0px 0px 0px">
@@ -288,12 +283,6 @@
 							</table>
 						</div>
 					</div>
-	
-	
-	
-	
-	
-	
 					<!-- 技能信息 -->
 					<div class="panel panel-default">
 						<div class="panel-heading">技能信息</div>
@@ -338,10 +327,69 @@
 							</table>
 						</div>
 					</div>
+					<center>
+						<div id="cyReward" role="cylabs" data-use="reward"></div>
+					</center>
 				</c:if>
 				<c:if test="${empty mi.defName}">
 					不存在这个ID的精灵，请检查一下ID
 				</c:if>
+				<!--PC和WAP自适应版-->
+				<div id="SOHUCS" sid="${pd.id }"></div>
+				<script type="text/javascript">
+					(function() {
+						var appid = 'cysxWAjHm';
+						var conf = 'prod_03c1ff80bdd0c0493bab9077cb8e614d';
+						var width = window.innerWidth
+								|| document.documentElement.clientWidth;
+						if (width < 960) {
+							window.document
+									.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id='
+											+ appid
+											+ '&conf='
+											+ conf
+											+ '"><\/script>');
+						} else {
+							var loadJs = function(d, a) {
+								var c = document.getElementsByTagName("head")[0]
+										|| document.head
+										|| document.documentElement;
+								var b = document.createElement("script");
+								b.setAttribute("type", "text/javascript");
+								b.setAttribute("charset", "UTF-8");
+								b.setAttribute("src", d);
+								if (typeof a === "function") {
+									if (window.attachEvent) {
+										b.onreadystatechange = function() {
+											var e = b.readyState;
+											if (e === "loaded"
+													|| e === "complete") {
+												b.onreadystatechange = null;
+												a()
+											}
+										}
+									} else {
+										b.onload = a
+									}
+								}
+								c.appendChild(b)
+							};
+							loadJs(
+									"http://changyan.sohu.com/upload/changyan.js",
+									function() {
+										window.changyan.api.config({
+											appid : appid,
+											conf : conf
+										})
+									});
+						}
+					})();
+				</script>
+				<!-- 畅言End -->
+				<script type="text/javascript" charset="utf-8"
+					src="http://changyan.itc.cn/js/lib/jquery.js"></script>
+				<script type="text/javascript" charset="utf-8"
+					src="https://changyan.sohu.com/js/changyan.labs.https.js?appid=cysxWAjHm"></script>
 			</div>
 			<jsp:include page="callMe.jsp"></jsp:include>
 			<!-- /.blog-sidebar -->
